@@ -1,8 +1,9 @@
-﻿using LifeOptimizer.Server.Models;
+﻿using LifeOptimizer.Server.Interfaces;
+using LifeOptimizer.Server.Models;
 
 namespace LifeOptimizer.Server.Services
 {
-    public class DrawerService
+    public class DrawerService : IDrawerService
     {
         public void AddDrawer(OfficeCabinet cabinet, Drawer drawer)
         {

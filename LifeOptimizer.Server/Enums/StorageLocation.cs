@@ -7,6 +7,6 @@
         Cabinet,
         Pantry,
         Shelf,
-        OfficeDrawers
+        Drawers
     }
 }
