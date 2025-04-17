@@ -7,7 +7,7 @@ namespace LifeOptimizer.Server.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public double Capacity { get; set; } // e.g., in liters or cubic feet
-        public StorageLocation Location { get; set; } // e.g., Fridge, Freezer, etc.        
+        public string Location { get; set; } // e.g., Fridge, Freezer, etc.        
         public List<InventoryItem> InventoryItems { get; set; } // List of items stored in this storage
     }
 }
