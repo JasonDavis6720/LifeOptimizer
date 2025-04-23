@@ -1,10 +1,23 @@
-﻿namespace LifeOptimizer.Server.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace LifeOptimizer.Server.Models
 {
-    public class ColdStorage: BaseStorage
+    public class ColdStorage : BaseStorage
     {
-        public double Temperature { get; set; } // e.g., -18 degrees Celsius for a freezer
-        public bool IsFrostFree { get; set; } // e.g., true or false        
-        public DateTime LastDefrosted { get; set; } // e.g., 2023-10-01
-        public DateTime NextDefrosted => LastDefrosted.AddMonths(12); // 12 months from LastDefrosted
+        // Type of cold storage (e.g., Refrigerator, Freezer)
+        [Required]
+        [MaxLength(50)] // Limit the length to 50 characters
+        public string Type { get; set; }
+
+        // Indicates whether the storage is frost-free
+        public bool? IsFrostFree { get; set; }
+
+        // Last defrost date
+        public DateTime? LastDefrosted { get; set; }
+
+        // Calculated property for the next defrost date
+        [NotMapped] // Exclude from the database since it's calculated
+        public DateTime? NextDefrosted => LastDefrosted?.AddMonths(12);
     }
 }
