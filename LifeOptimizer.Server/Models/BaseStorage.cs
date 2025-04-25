@@ -31,7 +31,6 @@ namespace LifeOptimizer.Server.Models
         // List of items stored in this storage
         public List<InventoryItem> InventoryItems { get; set; } = new List<InventoryItem>(); // Initialize to avoid null
 
-        //TODO: Remove, Branch Protection Rule Test
     }
 }
 
