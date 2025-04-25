@@ -5,7 +5,7 @@ namespace LifeOptimizer.Server.Services
 {
     public class DrawerService : IDrawerService
     {
-        public void AddDrawer(OfficeCabinet cabinet, Drawer drawer)
+        public void AddDrawer(Cabinet cabinet, Drawer drawer)
         {
             if (cabinet.Drawers.Any(d => d.DrawerNumber == drawer.DrawerNumber))
             {
@@ -15,7 +15,7 @@ namespace LifeOptimizer.Server.Services
             cabinet.Drawers.Add(drawer);
         }
 
-        public void RemoveDrawer(OfficeCabinet cabinet, int drawerNumber)
+        public void RemoveDrawer(Cabinet cabinet, int drawerNumber)
         {
             var drawer = cabinet.Drawers.FirstOrDefault(d => d.DrawerNumber == drawerNumber);
             if (drawer != null)
@@ -28,7 +28,7 @@ namespace LifeOptimizer.Server.Services
             }
         }
 
-        public void UpdateDrawerLabel(OfficeCabinet cabinet, int drawerNumber, string newLabel)
+        public void UpdateDrawerLabel(Cabinet cabinet, int drawerNumber, string newLabel)
         {
             var drawer = cabinet.Drawers.FirstOrDefault(d => d.DrawerNumber == drawerNumber);
             if (drawer != null)

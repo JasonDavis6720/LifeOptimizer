@@ -45,7 +45,6 @@ namespace LifeOptimizer.Server.Services
                 item.Quantity = updatedItem.Quantity;
                 item.Unit = updatedItem.Unit;
                 item.ExpirationDate = updatedItem.ExpirationDate;
-                item.StorageLocation = updatedItem.StorageLocation;
                 item.IsExpired = updatedItem.IsExpired;
             }
             else

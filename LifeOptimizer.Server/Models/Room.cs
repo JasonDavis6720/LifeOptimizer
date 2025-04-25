@@ -12,7 +12,7 @@ namespace LifeOptimizer.Server.Models
         [MaxLength(100)]
         public string Name { get; set; } // Name of the room (e.g., "Kitchen", "Living Room")
 
-        [ForeignKey("DwellingId")]
+        //[ForeignKey("DwellingId")]
         public int DwellingId { get; set; } // Foreign key to the Dwelling
 
         public Dwelling Dwelling { get; set; } // Navigation property to the Dwelling

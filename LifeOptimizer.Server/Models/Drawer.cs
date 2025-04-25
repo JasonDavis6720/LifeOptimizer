@@ -18,11 +18,8 @@ namespace LifeOptimizer.Server.Models
         [Required]
         public bool IsLocked { get; set; }
 
-        // List of items stored in this drawer
-        public List<InventoryItem> InventoryItems { get; set; } = new List<InventoryItem>();
-
         // Foreign Key to Cabinet
-        [ForeignKey("Cabinet")]
+        //[ForeignKey("Cabinet")]
         public int CabinetId { get; set; } // Foreign key to the Cabinet
 
         // Navigation Property to Cabinet

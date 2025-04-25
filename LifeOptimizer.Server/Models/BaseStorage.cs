@@ -15,14 +15,14 @@ namespace LifeOptimizer.Server.Models
         public string Name { get; set; }
 
         // Foreign Key to Room
-        [ForeignKey("Room")]
+        //[ForeignKey("Room")]
         public int RoomId { get; set; } // Foreign key to the Room
 
         // Navigation Property to Room
         public Room Location { get; set; } // Navigation property to the Room
 
         // Foreign Key to Dwelling
-        [ForeignKey("Dwelling")]
+        //[ForeignKey("Dwelling")]
         public int DwellingId { get; set; } // Foreign key to the Dwelling
 
         // Navigation Property to Dwelling
@@ -31,7 +31,6 @@ namespace LifeOptimizer.Server.Models
         // List of items stored in this storage
         public List<InventoryItem> InventoryItems { get; set; } = new List<InventoryItem>(); // Initialize to avoid null
 
-        //TODO REMOVE ME
     }
 }
 

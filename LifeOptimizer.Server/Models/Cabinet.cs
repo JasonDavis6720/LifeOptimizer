@@ -6,9 +6,6 @@ namespace LifeOptimizer.Server.Models
     public class Cabinet : BaseStorage
     {
         // Name of the cabinet (e.g., "Office Cabinet")
-        [Required]
-        [MaxLength(100)] // Limit the length to 100 characters
-        public string Name { get; set; }
 
         // Navigation Property to Drawers
         public List<Drawer> Drawers { get; set; } = new List<Drawer>();

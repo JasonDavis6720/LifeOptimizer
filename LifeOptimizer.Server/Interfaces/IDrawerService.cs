@@ -4,9 +4,9 @@ namespace LifeOptimizer.Server.Interfaces
 {
     public interface IDrawerService
     {
-        void AddDrawer(OfficeCabinet cabinet, Drawer drawer);
-        void RemoveDrawer(OfficeCabinet cabinet, int drawerNumber);
-        void UpdateDrawerLabel(OfficeCabinet cabinet, int drawerNumber, string newLabel);
+        void AddDrawer(Cabinet cabinet, Drawer drawer);
+        void RemoveDrawer(Cabinet cabinet, int drawerNumber);
+        void UpdateDrawerLabel(Cabinet cabinet, int drawerNumber, string newLabel);
     }
 
 }

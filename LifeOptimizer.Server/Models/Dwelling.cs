@@ -10,7 +10,7 @@ namespace LifeOptimizer.Server.Models
         public int Id { get; set; } // Primary key
 
         // Foreign Key
-        [ForeignKey("UserId")]
+        //[ForeignKey("UserId")]
         public string UserId { get; set; } // Foreign key to the User
 
         // Navigation Property to User Object

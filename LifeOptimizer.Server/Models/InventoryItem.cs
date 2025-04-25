@@ -27,7 +27,7 @@ namespace LifeOptimizer.Server.Models
         public bool IsExpired { get; set; } // e.g., true or false
 
         // Foreign Key to BaseStorage
-        [ForeignKey("BaseStorage")]
+        //[ForeignKey("BaseStorage")]
         public int BaseStorageId { get; set; } // Foreign key to the storage location
 
         // Navigation Property to BaseStorage

@@ -2,6 +2,9 @@
 
 public class Address
 {
+    [Key]
+    public int Id { get; set; } // Primary key
+
     [Required]
     [MaxLength(100)]
     public string Street { get; set; } // e.g., "123 Main St"
