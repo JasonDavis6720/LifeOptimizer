@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LifeOptimizer.Server.Models
@@ -6,7 +7,7 @@ namespace LifeOptimizer.Server.Models
     public class InventoryItem
     {
         [Key]
-        public int Id { get; set; }
+        public int Id { get; set; } // Primary key
 
         [Required]
         [MaxLength(100)]
@@ -24,13 +25,13 @@ namespace LifeOptimizer.Server.Models
 
         public DateTime? ExpirationDate { get; set; } // Nullable for non-perishable items
 
-        public bool IsExpired { get; set; } // e.g., true or false
+        public bool IsExpired { get; set; } // Indicates if the item is expired
 
-        // Foreign Key to BaseStorage
-        [ForeignKey("BaseStorage")]
-        public int BaseStorageId { get; set; } // Foreign key to the storage location
+        // Foreign Key to StorageItem
+        [Required]
+        public int StorageItemId { get; set; } // Foreign key to the storage location
 
-        // Navigation Property to BaseStorage
-        public BaseStorage BaseStorage { get; set; } // Navigation property to the storage location
+        [ForeignKey("StorageItemId")]
+        public StorageItem StorageItem { get; set; } // Navigation property to the storage location
     }
 }
