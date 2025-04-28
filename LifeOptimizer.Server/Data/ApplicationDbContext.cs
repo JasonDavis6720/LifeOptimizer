@@ -19,12 +19,23 @@ namespace LifeOptimizer.Server.Data
         public DbSet<Shelf> Shelves { get; set; }
         public DbSet<Drawer> Drawers { get; set; }
         public DbSet<InventoryItem> InventoryItems { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Address> Address { get; set; } = default!;
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Dwelling>()
+            modelBuilder.Entity<User>().ToTable("Users");
+            
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Dwellings)
+                .WithOne(d => d.User)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<Dwelling>()
                 .HasOne(d => d.User)
                 .WithMany(u => u.Dwellings)
                 .HasForeignKey(d => d.UserId)
@@ -87,6 +98,7 @@ namespace LifeOptimizer.Server.Data
                 .OnDelete(DeleteBehavior.Cascade); // Cascade delete FreezerDetails when a StorageItem is deleted
 
         }
+
 
     }
 }

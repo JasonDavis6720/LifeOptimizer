@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace LifeOptimizer.Server.Migrations
+namespace LifeOptimizer.Server.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class ModelRefactor : Migration
+    public partial class modelrefactor : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

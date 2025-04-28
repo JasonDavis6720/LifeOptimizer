@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace LifeOptimizer.Server.Migrations
+namespace LifeOptimizer.Server.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250428131628_ModelRefactor")]
-    partial class ModelRefactor
+    [Migration("20250428131839_model-refactor")]
+    partial class modelrefactor
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
