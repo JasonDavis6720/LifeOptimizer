@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LifeOptimizer.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250425191856_TestMigration")]
-    partial class TestMigration
+    [Migration("20250428131628_ModelRefactor")]
+    partial class ModelRefactor
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,7 +63,7 @@ namespace LifeOptimizer.Server.Migrations
                     b.ToTable("Address");
                 });
 
-            modelBuilder.Entity("LifeOptimizer.Server.Models.BaseStorage", b =>
+            modelBuilder.Entity("LifeOptimizer.Server.Models.Drawer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -71,24 +71,25 @@ namespace LifeOptimizer.Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("DwellingId")
+                    b.Property<int>("DrawerNumber")
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
+                    b.Property<bool>("IsLocked")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Label")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("RoomId")
+                    b.Property<int>("StorageItemId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DwellingId");
+                    b.HasIndex("StorageItemId");
 
-                    b.HasIndex("RoomId");
-
-                    b.ToTable("BaseStorage");
+                    b.ToTable("Drawers");
                 });
 
             modelBuilder.Entity("LifeOptimizer.Server.Models.Dwelling", b =>
@@ -117,7 +118,32 @@ namespace LifeOptimizer.Server.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Dwelling");
+                    b.ToTable("Dwellings");
+                });
+
+            modelBuilder.Entity("LifeOptimizer.Server.Models.FreezerDetails", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<TimeSpan>("DefrostInterval")
+                        .HasColumnType("time");
+
+                    b.Property<DateTime?>("LastDefrostDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("StorageItemId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StorageItemId")
+                        .IsUnique();
+
+                    b.ToTable("FreezerDetails");
                 });
 
             modelBuilder.Entity("LifeOptimizer.Server.Models.InventoryItem", b =>
@@ -127,9 +153,6 @@ namespace LifeOptimizer.Server.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BaseStorageId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Category")
                         .IsRequired()
@@ -150,6 +173,9 @@ namespace LifeOptimizer.Server.Migrations
                     b.Property<double>("Quantity")
                         .HasColumnType("float");
 
+                    b.Property<int>("StorageItemId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Unit")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -157,9 +183,9 @@ namespace LifeOptimizer.Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BaseStorageId");
+                    b.HasIndex("StorageItemId");
 
-                    b.ToTable("InventoryItem");
+                    b.ToTable("InventoryItems");
                 });
 
             modelBuilder.Entity("LifeOptimizer.Server.Models.Room", b =>
@@ -182,7 +208,58 @@ namespace LifeOptimizer.Server.Migrations
 
                     b.HasIndex("DwellingId");
 
-                    b.ToTable("Room");
+                    b.ToTable("Rooms");
+                });
+
+            modelBuilder.Entity("LifeOptimizer.Server.Models.Shelf", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("StorageItemId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StorageItemId");
+
+                    b.ToTable("Shelves");
+                });
+
+            modelBuilder.Entity("LifeOptimizer.Server.Models.StorageItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("RoomId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoomId");
+
+                    b.ToTable("StorageItems");
                 });
 
             modelBuilder.Entity("LifeOptimizer.Server.Models.User", b =>
@@ -241,23 +318,15 @@ namespace LifeOptimizer.Server.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("LifeOptimizer.Server.Models.BaseStorage", b =>
+            modelBuilder.Entity("LifeOptimizer.Server.Models.Drawer", b =>
                 {
-                    b.HasOne("LifeOptimizer.Server.Models.Dwelling", "Dwelling")
-                        .WithMany()
-                        .HasForeignKey("DwellingId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                    b.HasOne("LifeOptimizer.Server.Models.StorageItem", "StorageItem")
+                        .WithMany("Drawers")
+                        .HasForeignKey("StorageItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LifeOptimizer.Server.Models.Room", "Location")
-                        .WithMany()
-                        .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Dwelling");
-
-                    b.Navigation("Location");
+                    b.Navigation("StorageItem");
                 });
 
             modelBuilder.Entity("LifeOptimizer.Server.Models.Dwelling", b =>
@@ -279,15 +348,26 @@ namespace LifeOptimizer.Server.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("LifeOptimizer.Server.Models.InventoryItem", b =>
+            modelBuilder.Entity("LifeOptimizer.Server.Models.FreezerDetails", b =>
                 {
-                    b.HasOne("LifeOptimizer.Server.Models.BaseStorage", "BaseStorage")
-                        .WithMany("InventoryItems")
-                        .HasForeignKey("BaseStorageId")
+                    b.HasOne("LifeOptimizer.Server.Models.StorageItem", "StorageItem")
+                        .WithOne("FreezerDetails")
+                        .HasForeignKey("LifeOptimizer.Server.Models.FreezerDetails", "StorageItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("BaseStorage");
+                    b.Navigation("StorageItem");
+                });
+
+            modelBuilder.Entity("LifeOptimizer.Server.Models.InventoryItem", b =>
+                {
+                    b.HasOne("LifeOptimizer.Server.Models.StorageItem", "StorageItem")
+                        .WithMany("InventoryItems")
+                        .HasForeignKey("StorageItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("StorageItem");
                 });
 
             modelBuilder.Entity("LifeOptimizer.Server.Models.Room", b =>
@@ -295,20 +375,54 @@ namespace LifeOptimizer.Server.Migrations
                     b.HasOne("LifeOptimizer.Server.Models.Dwelling", "Dwelling")
                         .WithMany("Rooms")
                         .HasForeignKey("DwellingId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Dwelling");
                 });
 
-            modelBuilder.Entity("LifeOptimizer.Server.Models.BaseStorage", b =>
+            modelBuilder.Entity("LifeOptimizer.Server.Models.Shelf", b =>
                 {
-                    b.Navigation("InventoryItems");
+                    b.HasOne("LifeOptimizer.Server.Models.StorageItem", "StorageItem")
+                        .WithMany("Shelves")
+                        .HasForeignKey("StorageItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("StorageItem");
+                });
+
+            modelBuilder.Entity("LifeOptimizer.Server.Models.StorageItem", b =>
+                {
+                    b.HasOne("LifeOptimizer.Server.Models.Room", "Room")
+                        .WithMany("StorageItems")
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Room");
                 });
 
             modelBuilder.Entity("LifeOptimizer.Server.Models.Dwelling", b =>
                 {
                     b.Navigation("Rooms");
+                });
+
+            modelBuilder.Entity("LifeOptimizer.Server.Models.Room", b =>
+                {
+                    b.Navigation("StorageItems");
+                });
+
+            modelBuilder.Entity("LifeOptimizer.Server.Models.StorageItem", b =>
+                {
+                    b.Navigation("Drawers");
+
+                    b.Navigation("FreezerDetails")
+                        .IsRequired();
+
+                    b.Navigation("InventoryItems");
+
+                    b.Navigation("Shelves");
                 });
 
             modelBuilder.Entity("LifeOptimizer.Server.Models.User", b =>

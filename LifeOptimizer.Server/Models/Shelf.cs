@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LifeOptimizer.Server.Models
 {
-    public class Drawer
+    public class Shelf
     {
         [Key]
         public int Id { get; set; } // Primary key
@@ -15,13 +15,7 @@ namespace LifeOptimizer.Server.Models
         public StorageItem StorageItem { get; set; } // Navigation property to the StorageItem
 
         [Required]
-        [Range(1, int.MaxValue, ErrorMessage = "DrawerNumber must be greater than 0.")]
-        public int DrawerNumber { get; set; } // Drawer number (e.g., 1, 2, 3)
-
-        [MaxLength(100)]
-        public string Label { get; set; } // Label for the drawer (e.g., "Stationery", "Files")
-
-        [Required]
-        public bool IsLocked { get; set; } // Indicates whether the drawer is locked
+        [MaxLength(50)]
+        public string Label { get; set; } // Label for the shelf (e.g., "Top Shelf")
     }
 }

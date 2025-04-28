@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LifeOptimizer.Server.Migrations
 {
     /// <inheritdoc />
-    public partial class TestMigration : Migration
+    public partial class ModelRefactor : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -55,26 +55,26 @@ namespace LifeOptimizer.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Dwelling",
+                name: "Dwellings",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    AddressId = table.Column<int>(type: "int", nullable: false)
+                    AddressId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Dwelling", x => x.Id);
+                    table.PrimaryKey("PK_Dwellings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Dwelling_Address_AddressId",
+                        name: "FK_Dwellings_Address_AddressId",
                         column: x => x.AddressId,
                         principalTable: "Address",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Dwelling_User_UserId",
+                        name: "FK_Dwellings_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
                         principalColumn: "Id",
@@ -82,7 +82,7 @@ namespace LifeOptimizer.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Room",
+                name: "Rooms",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -92,44 +92,81 @@ namespace LifeOptimizer.Server.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Room", x => x.Id);
+                    table.PrimaryKey("PK_Rooms", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Room_Dwelling_DwellingId",
+                        name: "FK_Rooms_Dwellings_DwellingId",
                         column: x => x.DwellingId,
-                        principalTable: "Dwelling",
+                        principalTable: "Dwellings",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "BaseStorage",
+                name: "StorageItems",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    RoomId = table.Column<int>(type: "int", nullable: false),
-                    DwellingId = table.Column<int>(type: "int", nullable: false)
+                    Type = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    RoomId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BaseStorage", x => x.Id);
+                    table.PrimaryKey("PK_StorageItems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_BaseStorage_Dwelling_DwellingId",
-                        column: x => x.DwellingId,
-                        principalTable: "Dwelling",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_BaseStorage_Room_RoomId",
+                        name: "FK_StorageItems_Rooms_RoomId",
                         column: x => x.RoomId,
-                        principalTable: "Room",
+                        principalTable: "Rooms",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "InventoryItem",
+                name: "Drawers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StorageItemId = table.Column<int>(type: "int", nullable: false),
+                    DrawerNumber = table.Column<int>(type: "int", nullable: false),
+                    Label = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    IsLocked = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Drawers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Drawers_StorageItems_StorageItemId",
+                        column: x => x.StorageItemId,
+                        principalTable: "StorageItems",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FreezerDetails",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StorageItemId = table.Column<int>(type: "int", nullable: false),
+                    LastDefrostDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DefrostInterval = table.Column<TimeSpan>(type: "time", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FreezerDetails", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FreezerDetails_StorageItems_StorageItemId",
+                        column: x => x.StorageItemId,
+                        principalTable: "StorageItems",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InventoryItems",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -140,64 +177,104 @@ namespace LifeOptimizer.Server.Migrations
                     Unit = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     ExpirationDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsExpired = table.Column<bool>(type: "bit", nullable: false),
-                    BaseStorageId = table.Column<int>(type: "int", nullable: false)
+                    StorageItemId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_InventoryItem", x => x.Id);
+                    table.PrimaryKey("PK_InventoryItems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_InventoryItem_BaseStorage_BaseStorageId",
-                        column: x => x.BaseStorageId,
-                        principalTable: "BaseStorage",
+                        name: "FK_InventoryItems_StorageItems_StorageItemId",
+                        column: x => x.StorageItemId,
+                        principalTable: "StorageItems",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Shelves",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StorageItemId = table.Column<int>(type: "int", nullable: false),
+                    Label = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Shelves", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Shelves_StorageItems_StorageItemId",
+                        column: x => x.StorageItemId,
+                        principalTable: "StorageItems",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_BaseStorage_DwellingId",
-                table: "BaseStorage",
-                column: "DwellingId");
+                name: "IX_Drawers_StorageItemId",
+                table: "Drawers",
+                column: "StorageItemId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BaseStorage_RoomId",
-                table: "BaseStorage",
-                column: "RoomId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Dwelling_AddressId",
-                table: "Dwelling",
+                name: "IX_Dwellings_AddressId",
+                table: "Dwellings",
                 column: "AddressId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Dwelling_UserId",
-                table: "Dwelling",
+                name: "IX_Dwellings_UserId",
+                table: "Dwellings",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_InventoryItem_BaseStorageId",
-                table: "InventoryItem",
-                column: "BaseStorageId");
+                name: "IX_FreezerDetails_StorageItemId",
+                table: "FreezerDetails",
+                column: "StorageItemId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Room_DwellingId",
-                table: "Room",
+                name: "IX_InventoryItems_StorageItemId",
+                table: "InventoryItems",
+                column: "StorageItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rooms_DwellingId",
+                table: "Rooms",
                 column: "DwellingId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Shelves_StorageItemId",
+                table: "Shelves",
+                column: "StorageItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StorageItems_RoomId",
+                table: "StorageItems",
+                column: "RoomId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "InventoryItem");
+                name: "Drawers");
 
             migrationBuilder.DropTable(
-                name: "BaseStorage");
+                name: "FreezerDetails");
 
             migrationBuilder.DropTable(
-                name: "Room");
+                name: "InventoryItems");
 
             migrationBuilder.DropTable(
-                name: "Dwelling");
+                name: "Shelves");
+
+            migrationBuilder.DropTable(
+                name: "StorageItems");
+
+            migrationBuilder.DropTable(
+                name: "Rooms");
+
+            migrationBuilder.DropTable(
+                name: "Dwellings");
 
             migrationBuilder.DropTable(
                 name: "Address");
