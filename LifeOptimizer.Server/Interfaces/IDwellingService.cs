@@ -1,15 +1,12 @@
 ﻿using LifeOptimizer.Server.Models;
-using System.Collections.Generic;
+using LifeOptimizer.Server.Dtos;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 public interface IDwellingService
 {
-    Task<IEnumerable<Dwelling>> GetAllDwellingsAsync();
     Task<Dwelling> GetDwellingByIdAsync(int id);
-    Task<Dwelling> CreateDwellingAsync(Dwelling dwelling);
-    Task<Dwelling> UpdateDwellingAsync(int id, Dwelling dwelling);
-    Task<bool> DeleteDwellingAsync(int id, string userId);
-    Task<bool> AddressExistsAsync(int addressId);
-    Task<IEnumerable<Dwelling>> GetDwellingsByUserIdAsync(string userId);
 
+    Task<Dwelling> CreateDwellingAsync(Dwelling dwelling);
 }
+
