@@ -15,12 +15,6 @@ namespace LifeOptimizer.Server.Models
 
         public Address Address { get; set; } // Navigation property to the Address
 
-        //[Required]
-        //public int AddressId { get; set; } // Foreign key to the Address
-
-        //[ForeignKey("AddressId")]
-        //public Address Address { get; set; } // Navigation property to the Address
-
         [Required]
         public string UserId { get; set; } // Foreign key to the User
 

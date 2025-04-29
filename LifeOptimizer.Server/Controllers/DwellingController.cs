@@ -22,8 +22,18 @@ public class DwellingsController : ControllerBase
             return NotFound();
         }
 
-        return Ok(dwelling);
+        var response = new DwellingResponseDto
+        {
+            Id = dwelling.Id,
+            Name = dwelling.Name,
+            Address = dwelling.Address,
+            UserName = dwelling.User?.UserName // Include only the UserName
+
+        };
+
+        return Ok(response);
     }
+
 
 
     // POST: api/dwellings/user/{userId}
@@ -45,13 +55,23 @@ public class DwellingsController : ControllerBase
         try
         {
             var createdDwelling = await _dwellingService.CreateDwellingAsync(dwelling);
-            return CreatedAtAction(nameof(CreateDwellingForUser), new { id = createdDwelling.Id }, createdDwelling);
+
+            // Map to DwellingResponseDto
+            var response = new DwellingResponseDto
+            {
+                Id = createdDwelling.Id,
+                Name = createdDwelling.Name,
+                Address = createdDwelling.Address,
+                UserName = createdDwelling.User?.UserName
+            };
+
+            return CreatedAtAction(nameof(GetDwellingById), new { id = response.Id }, response);
         }
         catch (InvalidOperationException ex)
         {
             return BadRequest(new { message = ex.Message });
         }
-    }
 
+    }
 }
 

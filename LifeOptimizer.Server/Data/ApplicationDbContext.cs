@@ -35,9 +35,7 @@ namespace LifeOptimizer.Server.Data
                 a.Property(ad => ad.ZipCode).HasMaxLength(10).IsRequired();
                 a.Property(ad => ad.Country).HasMaxLength(50).HasDefaultValue("USA");
             });
-            
-            modelBuilder.Entity<User>().ToTable("Users");
-            
+                      
             modelBuilder.Entity<User>()
                 .HasMany(u => u.Dwellings)
                 .WithOne(d => d.User)

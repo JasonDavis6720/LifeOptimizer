@@ -1,12 +1,15 @@
 ﻿using LifeOptimizer.Server.Models;
-using LifeOptimizer.Server.Dtos;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 
 public interface IDwellingService
 {
+    //TODO: Remove
     Task<Dwelling> GetDwellingByIdAsync(int id);
 
     Task<Dwelling> CreateDwellingAsync(Dwelling dwelling);
+
+    //TODO: Methods To Add
+    //DeleteDwellingAsync();
+    //UpdateDwellingAsync();
+
 }
 
