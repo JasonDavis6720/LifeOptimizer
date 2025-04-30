@@ -1,10 +1,10 @@
-﻿namespace LifeOptimizer.Server.Dtos
+﻿using LifeOptimizer.Server.Models;
+public class DwellingResponseDto
 {
-        public class DwellingRequestDto
-        {
-            public string Name { get; set; } // Name of the dwelling
-            public int AddressId { get; set; } // ID of the associated address
-        }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public Address Address { get; set; }
+        public string UserName { get; set; } // Include only the UserName
 
+}
 
-    }

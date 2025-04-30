@@ -12,13 +12,9 @@ namespace LifeOptimizer.Server.Models
         [Required]
         [MaxLength(100)]
         public string Name { get; set; } // Name of the dwelling (e.g., "My House")
-        
-        [Required]
-        public int AddressId { get; set; } // Foreign key to the Address
 
-        [ForeignKey("AddressId")]
         public Address Address { get; set; } // Navigation property to the Address
-        
+
         [Required]
         public string UserId { get; set; } // Foreign key to the User
 

@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\lifeoptimizer.client\lifeoptimizer.client.esproj">
+    <ProjectReference Include="..\lifeoptimizer.client\LifeOptimizer.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>

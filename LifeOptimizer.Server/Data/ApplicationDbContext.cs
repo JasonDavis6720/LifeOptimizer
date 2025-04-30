@@ -20,23 +20,30 @@ namespace LifeOptimizer.Server.Data
         public DbSet<Drawer> Drawers { get; set; }
         public DbSet<InventoryItem> InventoryItems { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Address> Address { get; set; } = default!;
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<User>().ToTable("Users");
-            
+            modelBuilder.Entity<Dwelling>()
+            .OwnsOne(d => d.Address, a =>
+            {
+                a.Property(ad => ad.Street).HasMaxLength(100).IsRequired();
+                a.Property(ad => ad.City).HasMaxLength(50).IsRequired();
+                a.Property(ad => ad.State).HasMaxLength(50).IsRequired();
+                a.Property(ad => ad.ZipCode).HasMaxLength(10).IsRequired();
+                a.Property(ad => ad.Country).HasMaxLength(50).HasDefaultValue("USA");
+            });
+                      
             modelBuilder.Entity<User>()
                 .HasMany(u => u.Dwellings)
                 .WithOne(d => d.User)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-        modelBuilder.Entity<Dwelling>()
-                .HasOne(d => d.User)
+            modelBuilder.Entity<Dwelling>()
+                .HasOne(e => e.User)
                 .WithMany(u => u.Dwellings)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.Cascade); // Optional: Cascade delete dwellings when a user is deleted
@@ -47,13 +54,6 @@ namespace LifeOptimizer.Server.Data
                 .WithMany(d => d.Rooms)
                 .HasForeignKey(r => r.DwellingId)
                 .OnDelete(DeleteBehavior.Cascade); // Cascade delete rooms when a dwelling is deleted
-
-            // Configure Dwelling -> Address relationship
-            modelBuilder.Entity<Dwelling>()
-                .HasOne(d => d.Address)
-                .WithMany()
-                .HasForeignKey(d => d.AddressId)
-                .OnDelete(DeleteBehavior.Cascade); // Cascade delete address when a dwelling is deleted
 
             // Configure StorageItem -> Room relationship
             modelBuilder.Entity<StorageItem>()
