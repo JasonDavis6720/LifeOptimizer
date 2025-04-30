@@ -11,31 +11,64 @@ public class DwellingService : IDwellingService
         _context = context;
     }
 
-    public async Task<Dwelling> GetDwellingByIdAsync(int id)
+    public async Task<DwellingResponseDto> GetDwellingResponseByIdAsync(int id)
+    {
+        var dwelling = await _context.Dwellings
+            .Include(d => d.Address)
+            .Include(d => d.User)
+            .FirstOrDefaultAsync(d => d.Id == id);
+
+        if (dwelling == null)
         {
-            return await _context.Dwellings
-                .Include(d => d.Address) // Eagerly load the Address property
-                .Include(d => d.User)    // Eagerly load the User property
-                .FirstOrDefaultAsync(d => d.Id == id);
+            return null;
         }
 
+        return new DwellingResponseDto
+        {
+            Id = dwelling.Id,
+            Name = dwelling.Name,
+            Address = dwelling.Address,
+            UserName = dwelling.User?.UserName
+        };
+    }
 
-
-    public async Task<Dwelling> CreateDwellingAsync(Dwelling dwelling)
+    public async Task<DwellingResponseDto> CreateDwellingForUserAsync(string userId, DwellingRequestDto dwellingDto)
     {
-        if (string.IsNullOrWhiteSpace(dwelling.UserId))
+        if (string.IsNullOrWhiteSpace(userId))
         {
             throw new InvalidOperationException("UserId cannot be null or empty.");
         }
 
+        var dwelling = new Dwelling
+        {
+            Name = dwellingDto.Name,
+            Address = dwellingDto.Address,
+            UserId = userId
+        };
+
         _context.Dwellings.Add(dwelling);
         await _context.SaveChangesAsync();
 
-        return await _context.Dwellings
-            .Include(d => d.Address)
-            .Include(d => d.User) // Eagerly load the User property
-            .FirstOrDefaultAsync(d => d.Id == dwelling.Id);
+        return new DwellingResponseDto
+        {
+            Id = dwelling.Id,
+            Name = dwelling.Name,
+            Address = dwelling.Address,
+            UserName = (await _context.Users.FindAsync(userId))?.UserName
+        };
     }
 
-}
+    public async Task<bool> DeleteDwellingByIdAsync(int id)
+    {
+        var dwelling = await _context.Dwellings.FirstOrDefaultAsync(d => d.Id == id);
 
+        if (dwelling == null)
+        {
+            return false;
+        }
+
+        _context.Dwellings.Remove(dwelling);
+        await _context.SaveChangesAsync();
+        return true;
+    }
+}

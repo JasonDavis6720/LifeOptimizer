@@ -1,15 +1,9 @@
-﻿using LifeOptimizer.Server.Models;
-
-public interface IDwellingService
+﻿public interface IDwellingService
 {
-    //TODO: Remove
-    Task<Dwelling> GetDwellingByIdAsync(int id);
-
-    Task<Dwelling> CreateDwellingAsync(Dwelling dwelling);
-
-    //TODO: Methods To Add
-    //DeleteDwellingAsync();
-    //UpdateDwellingAsync();
-
+    Task<DwellingResponseDto> GetDwellingResponseByIdAsync(int id);
+    Task<DwellingResponseDto> CreateDwellingForUserAsync(string userId, DwellingRequestDto dwellingDto);
+    Task<bool> DeleteDwellingByIdAsync(int id);
 }
+    //TODO: Methods To Add
+    //UpdateDwellingAsync()
 
