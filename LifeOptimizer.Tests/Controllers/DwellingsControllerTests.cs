@@ -99,7 +99,13 @@ namespace LifeOptimizer.Tests.Controllers
 
             // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-            Assert.Equal("Error", ((dynamic)badRequestResult.Value).message);
+            var response = badRequestResult.Value; // Access the anonymous object
+            Assert.NotNull(response);
+
+            // Use reflection to verify the property
+            var messageProperty = response.GetType().GetProperty("message");
+            Assert.NotNull(messageProperty);
+            Assert.Equal("Error", messageProperty.GetValue(response)?.ToString());
         }
 
         [Fact]
