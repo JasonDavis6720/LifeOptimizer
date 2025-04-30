@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35913.81 d17.13
+VisualStudioVersion = 17.13.35913.81
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "lifeoptimizer.client", "lifeoptimizer.client\lifeoptimizer.client.esproj", "{6EF3FE70-00F6-4881-C4DB-79AF9AE41CCE}"
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "LifeOptimizer.client", "lifeoptimizer.client\LifeOptimizer.client.esproj", "{6EF3FE70-00F6-4881-C4DB-79AF9AE41CCE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeOptimizer.Server", "LifeOptimizer.Server\LifeOptimizer.Server.csproj", "{61195055-0416-4C67-83F5-D9151D93154E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeOptimizer.Tests", "LifeOptimizer.Tests\LifeOptimizer.Tests.csproj", "{5500BF61-437B-4BBD-A57A-51A90FA2B54D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +25,10 @@ Global
 		{61195055-0416-4C67-83F5-D9151D93154E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61195055-0416-4C67-83F5-D9151D93154E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61195055-0416-4C67-83F5-D9151D93154E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5500BF61-437B-4BBD-A57A-51A90FA2B54D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5500BF61-437B-4BBD-A57A-51A90FA2B54D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5500BF61-437B-4BBD-A57A-51A90FA2B54D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5500BF61-437B-4BBD-A57A-51A90FA2B54D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
