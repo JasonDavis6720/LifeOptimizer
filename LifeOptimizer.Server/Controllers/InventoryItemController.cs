@@ -1,4 +1,5 @@
-﻿using LifeOptimizer.Server.Models;
+﻿using LifeOptimizer.Server.Dtos;
+using LifeOptimizer.Server.Models;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
@@ -51,12 +52,21 @@ namespace LifeOptimizer.Server.Controllers
 
         // Post: api/InventoryItem/{id}
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateInventoryItemAsync(int id, [FromBody] JsonPatchDocument<InventoryItem> patchDoc)
+        public async Task<IActionResult> UpdateInventoryItemAsync(int id, [FromBody] UpdateInventoryItemDto updatedItemDto)
         {
-            
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var response = await _inventoryItemService.UpdateInventoryItemAsync(id, updatedItemDto);
+            if (response == null)
+            {
+                return NotFound(); // Return 404 if the inventory item does not exist
+            }
+
+            return Ok(response); // Return the updated item
         }
-
-
 
         // DELETE: api/InventoryItem/{id}
         [HttpDelete("{id}")]
