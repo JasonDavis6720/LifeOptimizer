@@ -26,7 +26,7 @@ public class DwellingsController : ControllerBase
     }
 
     [HttpPost("user/{userId}")]
-    public async Task<IActionResult> CreateDwellingForUserAsync(string userId, [FromBody] DwellingRequestDto dwellingDto)
+    public async Task<IActionResult> CreateDwellingForUserAsync(string userId, [FromBody] Dwelling dwelling)
     {
         if (!ModelState.IsValid)
         {
@@ -35,7 +35,7 @@ public class DwellingsController : ControllerBase
 
         try
         {
-            var response = await _dwellingService.CreateDwellingForUserAsync(userId, dwellingDto);
+            var response = await _dwellingService.CreateDwellingForUserAsync(userId, dwelling);
             return CreatedAtAction(nameof(GetDwellingByIdAsync), new { id = response.Id }, response);
         }
         catch (InvalidOperationException ex)

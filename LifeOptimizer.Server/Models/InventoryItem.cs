@@ -27,11 +27,11 @@ namespace LifeOptimizer.Server.Models
 
         public bool IsExpired { get; set; } // Indicates if the item is expired
 
-        // Foreign Key to StorageItem
-        [Required]
-        public int StorageItemId { get; set; } // Foreign key to the storage location
+        //// Foreign Key to StorageItem
+        //[Required]
+        //public int StorageItemId { get; set; } // Foreign key to the storage location
 
-        [ForeignKey("StorageItemId")]
-        public StorageItem StorageItem { get; set; } // Navigation property to the storage location
+        //[ForeignKey("StorageItemId")]
+        //public StorageItem StorageItem { get; set; } // Navigation property to the storage location
     }
 }

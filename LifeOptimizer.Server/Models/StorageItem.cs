@@ -24,11 +24,6 @@ namespace LifeOptimizer.Server.Models
         [ForeignKey("RoomId")]
         public Room Room { get; set; } // Navigation property to the Room
 
-        public ICollection<Drawer> Drawers { get; set; } = new List<Drawer>(); // List of drawers in the storage item
-
-        public ICollection<Shelf> Shelves { get; set; } = new List<Shelf>(); // List of shelves in the storage item
-
-        public ICollection<InventoryItem> InventoryItems { get; set; } = new List<InventoryItem>(); // List of items stored directly in the storage item
         public FreezerDetails FreezerDetails { get; set; } // Navigation property to FreezerDetails
 
     }
