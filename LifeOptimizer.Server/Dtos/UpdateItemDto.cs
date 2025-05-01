@@ -10,5 +10,7 @@ namespace LifeOptimizer.Server.Dtos
         public string? Unit { get; set; }
         public DateTime? ExpirationDate { get; set; }
         public bool? IsExpired { get; set; }
+        public int? DrawerId { get; set; } // Foreign key to the drawer where the item is stored
+
     }
 }

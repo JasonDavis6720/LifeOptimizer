@@ -23,5 +23,6 @@ namespace LifeOptimizer.Server.Models
 
         [Required]
         public bool IsLocked { get; set; } // Indicates whether the drawer is locked
+
     }
 }

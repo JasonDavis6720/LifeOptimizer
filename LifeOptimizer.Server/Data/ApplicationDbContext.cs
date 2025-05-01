@@ -12,19 +12,26 @@ namespace LifeOptimizer.Server.Data
         }
 
         // DbSets for your entities
+        //public DbSet<User> Users { get; set; }
         //public DbSet<Dwelling> Dwellings { get; set; }
         //public DbSet<Room> Rooms { get; set; }
         //public DbSet<StorageItem> StorageItems { get; set; }
         //public DbSet<FreezerDetails> FreezerDetails { get; set; } // Add this line
         //public DbSet<Shelf> Shelves { get; set; }
-        //public DbSet<Drawer> Drawers { get; set; }
+        public DbSet<Drawer> Drawers { get; set; }
         public DbSet<InventoryItem> InventoryItems { get; set; }
-        //public DbSet<User> Users { get; set; }
 
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    base.OnModelCreating(modelBuilder);
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // Configure Drawer -> InventoryItem relationship (1:Many)
+            modelBuilder.Entity<InventoryItem>()
+                .HasOne(ii => ii.Drawer) // Navigation property in InventoryItem
+                .WithMany() // No Navigation property in Drawer
+                .HasForeignKey(ii => ii.DrawerId) // Foreign key in InventoryItem
+                .OnDelete(DeleteBehavior.SetNull); // Set DrawerId to NULL when a Drawer is deleted
 
             //modelBuilder.Entity<Dwelling>()
             //    .HasOne(d => d.User)
@@ -84,3 +91,4 @@ namespace LifeOptimizer.Server.Data
 
 
     }
+}
