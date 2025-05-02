@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LifeOptimizer.Server.Models
 {
-    public class InventoryItem
+    public class InventoryItemServer
     {
         [Key]
         public int Id { get; set; } // Primary key
