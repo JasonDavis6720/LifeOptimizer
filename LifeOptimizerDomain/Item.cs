@@ -11,8 +11,9 @@ namespace LifeOptimizer.Domain
         public double Quantity { get; set; }
         public string Unit { get; set; }
         public DateOnly? ExpirationDate { get; set; }
-        public bool IsExpired { get; set; }
+        public bool? IsExpired { get; set; }
         public int? DrawerId { get; set; }
+        public int? ShelfId { get; set; }
     }
 
 }

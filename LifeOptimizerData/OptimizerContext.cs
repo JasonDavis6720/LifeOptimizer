@@ -6,7 +6,9 @@ namespace LifeOptimizer.Data
 {
     public class OptimizerContext: DbContext
     {
+        public DbSet<StorageItem> StorageItems { get; set; }
         public DbSet<Drawer> Drawers { get; set; }
+        public DbSet<Shelf> Shelves { get; set; }
         public DbSet<Item> Items { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -14,7 +16,7 @@ namespace LifeOptimizer.Data
             
                 optionsBuilder
                     .UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = OptimizerDatabase")
-                    .LogTo(Console.WriteLine, LogLevel.Information);
+                    .LogTo(Console.WriteLine, LogLevel.None);
 
         }
     }
