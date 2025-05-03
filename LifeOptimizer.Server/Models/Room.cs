@@ -18,6 +18,5 @@ namespace LifeOptimizer.Server.Models
         [Required]
         public Dwelling Dwelling { get; set; } // Navigation property to the Dwelling
 
-        public ICollection<StorageItem> StorageItems { get; set; } = new List<StorageItem>(); // List of storage items in the room
     }
 }

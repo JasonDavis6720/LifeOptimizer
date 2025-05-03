@@ -7,8 +7,9 @@ namespace LifeOptimizer.Server.Models
     {
         // Full name of the user
         public string FullName { get; set; }
+        
+        //TEMPORARY: Password property for user creation
+        public string Password { get; set; }
 
-        // List of dwellings associated with the user
-        public ICollection<Dwelling> Dwellings { get; set; } = new List<Dwelling>();
     }
 }

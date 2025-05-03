@@ -1,74 +1,51 @@
-﻿using LifeOptimizer.Server.Data;
-using LifeOptimizer.Server.Models;
-using Microsoft.EntityFrameworkCore;
+﻿//using LifeOptimizer.Server.Data;
+//using LifeOptimizer.Server.Models;
+//using Microsoft.EntityFrameworkCore;
 
-public class DwellingService : IDwellingService
-{
-    private readonly ApplicationDbContext _context;
+//public class DwellingService : IDwellingService
+//{
+//    private readonly ApplicationDbContext _context;
 
-    public DwellingService(ApplicationDbContext context)
-    {
-        _context = context;
-    }
+//    public DwellingService(ApplicationDbContext context)
+//    {
+//        _context = context;
+//    }
 
-    public async Task<DwellingResponseDto> GetDwellingResponseByIdAsync(int id)
-    {
-        var dwelling = await _context.Dwellings
-            .Include(d => d.Address)
-            .Include(d => d.User)
-            .FirstOrDefaultAsync(d => d.Id == id);
+//    public async Task<Dwelling> GetDwellingResponseByIdAsync(int id)
+//    {
+//        var dwelling = await _context.Dwellings
+//            .Include(d => d.User)
+//            .FirstOrDefaultAsync(d => d.Id == id);
 
-        if (dwelling == null)
-        {
-            return null;
-        }
+//        return dwelling;
+//    }
 
-        return new DwellingResponseDto
-        {
-            Id = dwelling.Id,
-            Name = dwelling.Name,
-            Address = dwelling.Address,
-            UserName = dwelling.User?.UserName
-        };
-    }
+//    public async Task<Dwelling> CreateDwellingForUserAsync(string userId, Dwelling dwelling)
+//    {
+//        if (string.IsNullOrWhiteSpace(userId))
+//        {
+//            throw new InvalidOperationException("UserId cannot be null or empty.");
+//        }
 
-    public async Task<DwellingResponseDto> CreateDwellingForUserAsync(string userId, DwellingRequestDto dwellingDto)
-    {
-        if (string.IsNullOrWhiteSpace(userId))
-        {
-            throw new InvalidOperationException("UserId cannot be null or empty.");
-        }
+//        dwelling.UserId = userId;
+        
+//        _context.Dwellings.Add(dwelling);
+//        await _context.SaveChangesAsync();
 
-        var dwelling = new Dwelling
-        {
-            Name = dwellingDto.Name,
-            Address = dwellingDto.Address,
-            UserId = userId
-        };
+//        return dwelling;
+//    }
 
-        _context.Dwellings.Add(dwelling);
-        await _context.SaveChangesAsync();
+//    public async Task<bool> DeleteDwellingByIdAsync(int id)
+//    {
+//        var dwelling = await _context.Dwellings.FirstOrDefaultAsync(d => d.Id == id);
 
-        return new DwellingResponseDto
-        {
-            Id = dwelling.Id,
-            Name = dwelling.Name,
-            Address = dwelling.Address,
-            UserName = (await _context.Users.FindAsync(userId))?.UserName
-        };
-    }
+//        if (dwelling == null)
+//        {
+//            return false;
+//        }
 
-    public async Task<bool> DeleteDwellingByIdAsync(int id)
-    {
-        var dwelling = await _context.Dwellings.FirstOrDefaultAsync(d => d.Id == id);
-
-        if (dwelling == null)
-        {
-            return false;
-        }
-
-        _context.Dwellings.Remove(dwelling);
-        await _context.SaveChangesAsync();
-        return true;
-    }
-}
+//        _context.Dwellings.Remove(dwelling);
+//        await _context.SaveChangesAsync();
+//        return true;
+//    }
+//}

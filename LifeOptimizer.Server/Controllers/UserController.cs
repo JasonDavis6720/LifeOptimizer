@@ -36,21 +36,14 @@ namespace LifeOptimizer.Server.Controllers
 
         // POST: api/Users
         [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] CreateUserDto createUserDto)
+        public async Task<IActionResult> CreateUser([FromBody] User userToCreate)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var user = new User
-            {
-                UserName = createUserDto.UserName,
-                Email = createUserDto.Email,
-                FullName = createUserDto.FullName
-            };
-
-            var createdUser = await _userService.CreateUserAsync(user, createUserDto.Password);
+            var createdUser = await _userService.CreateUserAsync(userToCreate, userToCreate.Password);
             return CreatedAtAction(nameof(GetUserById), new { id = createdUser.Id }, createdUser);
         }
     }

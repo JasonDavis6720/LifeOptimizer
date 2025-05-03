@@ -13,7 +13,30 @@ namespace LifeOptimizer.Server.Models
         [MaxLength(100)]
         public string Name { get; set; } // Name of the dwelling (e.g., "My House")
 
-        public Address Address { get; set; } // Navigation property to the Address
+        [Required]
+        [MaxLength(100)]
+        public string StreetAddress { get; set; }
+
+        [MaxLength(50)]
+        public string ApartmentNumber { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public string City { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public string State { get; set; }
+
+        [Required]
+        [MaxLength(10)]
+        public string ZipCode { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public string Country { get; set; } = "USA";
+
+
 
         [Required]
         public string UserId { get; set; } // Foreign key to the User
@@ -21,6 +44,5 @@ namespace LifeOptimizer.Server.Models
         [ForeignKey("UserId")]
         public User User { get; set; } // Navigation property to the User
 
-        public ICollection<Room> Rooms { get; set; } = new List<Room>(); // List of rooms in the dwelling
     }
 }

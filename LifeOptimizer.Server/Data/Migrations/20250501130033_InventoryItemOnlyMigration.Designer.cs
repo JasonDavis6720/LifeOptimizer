@@ -4,6 +4,7 @@ using LifeOptimizer.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LifeOptimizer.Server.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250501130033_InventoryItemOnlyMigration")]
+    partial class InventoryItemOnlyMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,30 +24,6 @@ namespace LifeOptimizer.Server.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("LifeOptimizer.Server.Models.Drawer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("DrawerNumber")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Label")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Drawers");
-                });
 
             modelBuilder.Entity("LifeOptimizer.Server.Models.InventoryItem", b =>
                 {
@@ -58,9 +37,6 @@ namespace LifeOptimizer.Server.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
-
-                    b.Property<int?>("DrawerId")
-                        .HasColumnType("int");
 
                     b.Property<DateTime?>("ExpirationDate")
                         .HasColumnType("datetime2");
@@ -76,9 +52,6 @@ namespace LifeOptimizer.Server.Data.Migrations
                     b.Property<double>("Quantity")
                         .HasColumnType("float");
 
-                    b.Property<int>("StorageItemId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Unit")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -86,24 +59,7 @@ namespace LifeOptimizer.Server.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DrawerId");
-
                     b.ToTable("InventoryItems");
-                });
-
-            modelBuilder.Entity("LifeOptimizer.Server.Models.InventoryItem", b =>
-                {
-                    b.HasOne("LifeOptimizer.Server.Models.Drawer", "Drawer")
-                        .WithMany("InventoryItems")
-                        .HasForeignKey("DrawerId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.Navigation("Drawer");
-                });
-
-            modelBuilder.Entity("LifeOptimizer.Server.Models.Drawer", b =>
-                {
-                    b.Navigation("InventoryItems");
                 });
 #pragma warning restore 612, 618
         }
