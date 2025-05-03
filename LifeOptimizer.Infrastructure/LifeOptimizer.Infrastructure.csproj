@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LifeOptimizer.Core\LifeOptimizer.Core.csproj" />
-    <ProjectReference Include="..\LifeOptimizerDomain\LifeOptimizer.Domain.csproj" />
   </ItemGroup>
 
 </Project>

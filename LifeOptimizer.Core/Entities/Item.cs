@@ -13,10 +13,10 @@ namespace LifeOptimizer.Core.Entities
         public double Quantity { get; set; }
         public string Unit { get; set; }
         public DateOnly? ExpirationDate { get; set; }
-        public bool? IsExpired { get; set; }
+        public bool? IsExpired { get; set; } = false;
 
         public int? StorageLocationId { get; set; }
-        public StorageLocation StorageLocation { get; set; }
+        public StorageLocation? StorageLocation { get; set; }
     }
 
 }

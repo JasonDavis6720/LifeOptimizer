@@ -2,10 +2,10 @@
 
 #nullable disable
 
-namespace LifeOptimizer.Server.Data.Migrations
+namespace LifeOptimizer.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdateModelsTest : Migration
+    public partial class ItemChanges : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
