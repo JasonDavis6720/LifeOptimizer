@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35913.81
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "LifeOptimizer.client", "lifeoptimizer.client\LifeOptimizer.client.esproj", "{6EF3FE70-00F6-4881-C4DB-79AF9AE41CCE}"
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "LifeOptimizer.Client", "LifeOptimizer.client\LifeOptimizer.client.esproj", "{6EF3FE70-00F6-4881-C4DB-79AF9AE41CCE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeOptimizer.Server", "LifeOptimizer.Server\LifeOptimizer.Server.csproj", "{61195055-0416-4C67-83F5-D9151D93154E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeOptimizer.Tests", "LifeOptimizer.Tests\LifeOptimizer.Tests.csproj", "{5500BF61-437B-4BBD-A57A-51A90FA2B54D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeOptimizer.Data", "LifeOptimizerData\LifeOptimizer.Data.csproj", "{2B93C0FF-E92F-4940-9B4C-8FA4EF1CC50C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeOptimizer.Data", "LifeOptimizer.Data\LifeOptimizer.Data.csproj", "{2B93C0FF-E92F-4940-9B4C-8FA4EF1CC50C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeOptimizer.Domain", "LifeOptimizerDomain\LifeOptimizer.Domain.csproj", "{CF3BBEB2-C7C0-4A68-85F2-A7612FECC51E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeOptimizer.Domain", "LifeOptimizer.Domain\LifeOptimizer.Domain.csproj", "{CF3BBEB2-C7C0-4A68-85F2-A7612FECC51E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeOptimizer.Console", "LifeOptimizer.Console\LifeOptimizer.Console.csproj", "{9EA038D0-EFA4-4561-A5CC-DECB869F3C17}"
 EndProject
