@@ -9,9 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeOptimizer.Server", "Lif
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeOptimizer.Tests", "LifeOptimizer.Tests\LifeOptimizer.Tests.csproj", "{5500BF61-437B-4BBD-A57A-51A90FA2B54D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeOptimizer.Data", "LifeOptimizerData\LifeOptimizer.Data.csproj", "{2B93C0FF-E92F-4940-9B4C-8FA4EF1CC50C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeOptimizer.Data", "LifeOptimizer.Data\LifeOptimizer.Data.csproj", "{2B93C0FF-E92F-4940-9B4C-8FA4EF1CC50C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeOptimizer.Domain", "LifeOptimizerDomain\LifeOptimizer.Domain.csproj", "{CF3BBEB2-C7C0-4A68-85F2-A7612FECC51E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeOptimizer.Domain", "LifeOptimizer.Domain\LifeOptimizer.Domain.csproj", "{CF3BBEB2-C7C0-4A68-85F2-A7612FECC51E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeOptimizer.Console", "LifeOptimizer.Console\LifeOptimizer.Console.csproj", "{9EA038D0-EFA4-4561-A5CC-DECB869F3C17}"
 EndProject
