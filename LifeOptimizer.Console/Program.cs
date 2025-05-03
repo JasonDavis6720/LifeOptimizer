@@ -5,31 +5,57 @@ using System.Reflection.Emit;
 
 using (OptimizerContext context = new OptimizerContext())
 {
-    //context.Database.EnsureDeleted();
+    context.Database.EnsureDeleted();
     context.Database.EnsureCreated();
 }
 
 Console.WriteLine("Hello, Life Optimizer!");
+
+
+//Populate Database for Use after a EnsureDeleted Call (Line 8)
+AddDrawer();
+AddShelf();
+AddStorageElement();
+AddDwelling();
+
+
+
+//Calling Item Methods for Testing Purposes
+//------------------------------------------
+//AddItem();
+//GetAllItems();
+//AddDrawer();
+//ChangeItemById(1);
+//GetAllItems();
+//DeleteItemById(2);
+//GetAllItems();
+
+
 //AddDrawer();
 //AddDrawerWithItem();
 //GetDrawersWithItems();
 //AddShelf();
 //AddShelfWithItem();
-//AddStorageItemWithShelf();
-//AddStorageItem();
+//AddstorageElementWithShelf();
+//AddstorageElement();
 //GetShelvesWithItems();
-//AddItem();
-//AddItemToShelf(1, 1);
-GetStorageItemsWithItems();
-//TEST METHODS
 
+//AddItemToShelf(1, 1);
+//GetstorageElementsWithItems();
+
+//DWELLING METHODS
+AddDwelling();
+
+
+//TEST METHODS
+//Items
 void AddItem()
 {
     var item = new Item
     {
-        Name = "Sample Item",
-        Category = "General",
-        Quantity = 10,
+        Name = "Evening Item 3",
+        Category = "Test Item 3",
+        Quantity = 2,
         Unit = "pcs",
         ExpirationDate = null,
         IsExpired = false
@@ -39,6 +65,50 @@ void AddItem()
     context.SaveChanges();
     Console.WriteLine($"Item '{item.Name}' added with ID: {item.ItemId}");
 }
+
+void GetAllItems()
+{
+    using var context = new OptimizerContext();
+    var items = context.Items.ToList();
+    foreach (var item in items)
+    {
+        Console.WriteLine($"Item ID: {item.ItemId}, Name: {item.Name}, Category: {item.Category}, Quantity: {item.Quantity}, Unit: {item.Unit}");
+    }
+}
+void ChangeItemById(int itemId)
+{
+    using var context = new OptimizerContext();
+    var item = context.Items.Find(itemId);
+    if (item != null)
+    {
+        item.DrawerId = 1;
+        context.SaveChanges();
+        Console.WriteLine($"Item with ID: {itemId} updated successfully.");
+    }
+    else
+    {
+        Console.WriteLine($"Item with ID: {itemId} not found.");
+    }
+}
+void DeleteItemById(int itemId)
+{
+    using var context = new OptimizerContext();
+    var item = context.Items.Find(itemId);
+    if (item != null)
+    {
+        context.Items.Remove(item);
+        context.SaveChanges();
+        Console.WriteLine($"Item with ID: {itemId} deleted successfully.");
+    }
+    else
+    {
+        Console.WriteLine($"Item with ID: {itemId} not found.");
+    }
+}
+
+
+
+
 
 void AddItemToShelf(int shelfId, int itemId)
 {
@@ -59,33 +129,33 @@ void AddItemToShelf(int shelfId, int itemId)
 
 }
 
-void AddStorageItemWithShelf()
+void AddStorageElementContainerWithShelf()
 {
-    var storageItem = new StorageItem
+    var storageElement = new StorageElement
     {
         Name = "Living Room Bookshelf",
         Type = "Bookshelf"
     };
 
-    storageItem.Shelves.Add(new Shelf
+    storageElement.Shelves.Add(new Shelf
     {
         Label = "Bottom Shelf",
     });
 
     using var context = new OptimizerContext();
-    context.StorageItems.Add(storageItem);
+    context.StorageElements.Add(storageElement);
     context.SaveChanges();
 }
 
-void AddStorageItem()
+void AddStorageElement()
 {
-    var storageItem = new StorageItem
+    var storageElement = new StorageElement
     {
         Name = "Kitchen Cabinet",
         Type = "Cabinet",
     };
     using var context = new OptimizerContext();
-    context.StorageItems.Add(storageItem);
+    context.StorageElements.Add(storageElement);
     context.SaveChanges();
 }
 void AddShelf()
@@ -119,23 +189,23 @@ void AddShelfWithItem()
     context.SaveChanges();
 }
 
-void GetStorageItemsWithItems()
+void GetStorageElementsWithItems()
 {
     using var context = new OptimizerContext();
-    var storageItems = context.StorageItems
+    var storageElements = context.StorageElements
         .Include(si => si.Items)
         .Include(si => si.Shelves)
         .ThenInclude(s => s.Items)
         .ToList();
-    foreach (var storageItem in storageItems)
+    foreach (var storageElement in storageElements)
     {
-        Console.WriteLine($"Storage Item ID: {storageItem.StorageItemId}, Name: {storageItem.Name}, Type: {storageItem.Type}");
+        Console.WriteLine($"Storage Item ID: {storageElement.StorageElementId}, Name: {storageElement.Name}, Type: {storageElement.Type}");
 
-        foreach (var item in storageItem.Items)
+        foreach (var item in storageElement.Items)
         {
             Console.WriteLine($"  Item Name: {item.Name}, Category: {item.Category}, Quantity: {item.Quantity}, Unit: {item.Unit}");
         }
-        foreach (var shelf in storageItem.Shelves)
+        foreach (var shelf in storageElement.Shelves)
         {
             Console.WriteLine($"  Shelf ID: {shelf.ShelfId}, Label: {shelf.Label}");
             foreach (var shelfItem in shelf.Items)
@@ -219,3 +289,24 @@ void AddDrawer()
     context.SaveChanges();
 }
 
+//DWELLING METHODS
+void AddDwelling()
+{
+    var dwelling = new Dwelling
+    {
+        Name = "My House",
+        StreetAddress = "123 Main St",
+        ApartmentNumber = "Apt 4B",
+        City = "Springfield",
+        State = "IL",
+        ZipCode = "62704",
+        Country = "USA",
+        UserId = "user123" // Replace with the actual UserId
+    };
+
+    using var context = new OptimizerContext();
+    context.Dwellings.Add(dwelling);
+    context.SaveChanges();
+
+    Console.WriteLine($"Dwelling '{dwelling.Name}' added with ID: {dwelling.DwellingId}");
+}
