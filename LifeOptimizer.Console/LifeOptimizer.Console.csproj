@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LifeOptimizer.Infrastructure\LifeOptimizer.Infrastructure.csproj" />
     <ProjectReference Include="..\LifeOptimizerData\LifeOptimizer.Data.csproj" />
     <ProjectReference Include="..\LifeOptimizerDomain\LifeOptimizer.Domain.csproj" />
   </ItemGroup>

@@ -1,50 +1,55 @@
 using Microsoft.EntityFrameworkCore;
-using LifeOptimizer.Server.Data;
-using Microsoft.AspNetCore.Mvc; // Ensure this is included
+using LifeOptimizer.Infrastructure.Data;
+using LifeOptimizer.Application.Interfaces;
+using LifeOptimizer.Application.Services;
+using LifeOptimizer.Core.Interfaces;
+using LifeOptimizer.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+// Configure DbContext
+builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// Add services to the container
+builder.Services.AddScoped<IItemService, ItemService>();
+builder.Services.AddScoped<IItemRepository, ItemRepository>();
 
-builder.Services.AddControllers()
-    .AddJsonOptions(options =>
-    {
-        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
-    });
+// Add controllers and JSON options
 
-// Add services to the container.
-//builder.Services.AddScoped<IUserService, UserService>();
-//builder.Services.AddScoped<IDwellingService, DwellingService>();
-builder.Services.AddScoped<IInventoryItemService, InventoryItemService>();
-builder.Services.AddScoped<IDrawerService, DrawerService>();
+builder.Services.AddControllers();
+// Uncomment the following lines if you need to deal with circular references in JSON serialization
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+//    .AddJsonOptions(options =>
+//    {
+//        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+//    });
+
+// Configure Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+//Configure Authorization 
+builder.Services.AddAuthorization();
+builder.Services.AddAuthentication(); // If needed, configure authentication schemes here.
+
 
 var app = builder.Build();
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
+
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.MapFallbackToFile("/index.html");
 
 app.Run();

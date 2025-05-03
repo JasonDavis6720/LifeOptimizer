@@ -1,13 +1,13 @@
-﻿using LifeOptimizer.Server.Models;
-using LifeOptimizer.Server.Dtos;
+﻿//using LifeOptimizer.Server.Models;
+//using LifeOptimizer.Server.Dtos;
 
-public interface IInventoryItemService
-{
-    Task<IEnumerable<InventoryItem>> GetAllInventoryItemsAsync();
-    Task<InventoryItem> GetInventoryItemByIdAsync(int id);
-    Task<InventoryItem> CreateInventoryItemAsync(InventoryItem inventoryItem);
-    Task<InventoryItem> UpdateInventoryItemAsync(int id, UpdateInventoryItemDto updatedItem);
-    Task<bool> DeleteInventoryItemAsync(int id);
+//public interface IItemService
+//{
+//    Task<IEnumerable<Item>> GetAllItemsAsync();
+//    Task<Item> GetItemByIdAsync(int id);
+//    Task<Item> CreateItemAsync(Item inventoryItem);
+//    Task<Item> UpdateItemAsync(int id, UpdateItemDto updatedItem);
+//    Task<bool> DeleteItemAsync(int id);
     
-}
+//}
 

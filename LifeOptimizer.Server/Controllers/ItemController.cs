@@ -1,0 +1,85 @@
+﻿using LifeOptimizer.Application.Interfaces;
+using LifeOptimizer.Core.Entities;
+using LifeOptimizer.Server.Dtos;
+using LifeOptimizer.Server.Models;
+using Microsoft.AspNetCore.Mvc;
+
+namespace LifeOptimizer.Server.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class ItemController : ControllerBase
+    {
+        private readonly IItemService _ItemService;
+        public ItemController(IItemService ItemService)
+        {
+            _ItemService = ItemService;
+        }
+        //[HttpGet]
+        //public async Task<IActionResult> GetAllInventoryItemsAsync()
+        //{
+        //    var response = await _ItemService.GetAllInventoryItemsAsync();
+        //    return Ok(response);
+        //}
+        ////GET: api/InventoryItem/{id}
+        //[HttpGet("{id}")]
+        //public async Task<IActionResult> GetInventoryItemByIdAsync(int id)
+        //{
+        //    var response = await _ItemService.GetInventoryItemByIdAsync(id);
+        //    if (response == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return Ok(response);
+        //}
+        //// POST: api/InventoryItem
+        [HttpPost]
+        public async Task<IActionResult> CreateInventoryItemAsync([FromBody] Item Item)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                var response = await _ItemService.CreateItemAsync(Item);
+                return Ok(response); // Return the created item directly
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        //// Post: api/InventoryItem/{id}
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> UpdateInventoryItemAsync(int id, [FromBody] UpdateInventoryItemDto updatedItemDto)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    var response = await _ItemService.UpdateInventoryItemAsync(id, updatedItemDto);
+        //    if (response == null)
+        //    {
+        //        return NotFound(); // Return 404 if the inventory item does not exist
+        //    }
+
+        //    return Ok(response); // Return the updated item
+        //}
+
+        //// DELETE: api/InventoryItem/{id}
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> DeleteInventoryItemByIdAsync(int id)
+        //{
+        //    var success = await _ItemService.DeleteInventoryItemAsync(id);
+        //    if (!success)
+        //    {
+        //        return NotFound(); // Return 404 if the inventory item does not exist
+        //    }
+        //    return NoContent(); // Return 204 No Content on successful deletion
+        //}
+    }
+}
+       
