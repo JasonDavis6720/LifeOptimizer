@@ -10,14 +10,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.4" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LifeOptimizer.Application\LifeOptimizer.Application.csproj" />
     <ProjectReference Include="..\LifeOptimizer.Client\LifeOptimizer.Client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+    <ProjectReference Include="..\LifeOptimizer.Core\LifeOptimizer.Core.csproj" />
+    <ProjectReference Include="..\LifeOptimizer.Infrastructure\LifeOptimizer.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -9,11 +9,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeOptimizer.Server", "Lif
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeOptimizer.Tests", "LifeOptimizer.Tests\LifeOptimizer.Tests.csproj", "{5500BF61-437B-4BBD-A57A-51A90FA2B54D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeOptimizer.Data", "LifeOptimizer.Data\LifeOptimizer.Data.csproj", "{2B93C0FF-E92F-4940-9B4C-8FA4EF1CC50C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeOptimizer.Infrastructure", "LifeOptimizer.Infrastructure\LifeOptimizer.Infrastructure.csproj", "{2B93C0FF-E92F-4940-9B4C-8FA4EF1CC50C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeOptimizer.Domain", "LifeOptimizer.Domain\LifeOptimizer.Domain.csproj", "{CF3BBEB2-C7C0-4A68-85F2-A7612FECC51E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeOptimizer.Core", "LifeOptimizer.Core\LifeOptimizer.Core.csproj", "{CF3BBEB2-C7C0-4A68-85F2-A7612FECC51E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeOptimizer.Console", "LifeOptimizer.Console\LifeOptimizer.Console.csproj", "{9EA038D0-EFA4-4561-A5CC-DECB869F3C17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeOptimizer.Application", "LifeOptimizer.Application\LifeOptimizer.Application.csproj", "{B3692121-4919-4FD1-903B-CF6A6A95C7F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{9EA038D0-EFA4-4561-A5CC-DECB869F3C17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9EA038D0-EFA4-4561-A5CC-DECB869F3C17}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9EA038D0-EFA4-4561-A5CC-DECB869F3C17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3692121-4919-4FD1-903B-CF6A6A95C7F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3692121-4919-4FD1-903B-CF6A6A95C7F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3692121-4919-4FD1-903B-CF6A6A95C7F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3692121-4919-4FD1-903B-CF6A6A95C7F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

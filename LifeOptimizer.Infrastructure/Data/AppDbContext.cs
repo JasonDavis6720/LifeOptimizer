@@ -1,15 +1,15 @@
-﻿using LifeOptimizer.Domain;
+﻿using LifeOptimizer.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace LifeOptimizer.Data
+namespace LifeOptimizer.Infrastructure.Data
 {
-    public class OptimizerContext: DbContext
+    public class AppDbContext: DbContext
     {
-        public DbSet<Dwelling> Dwellings { get; set; }
-        public DbSet<StorageElement> StorageElements { get; set; }
-        public DbSet<Drawer> Drawers { get; set; }
-        public DbSet<Shelf> Shelves { get; set; }
+        //public DbSet<Dwelling> Dwellings { get; set; }
+        //public DbSet<StorageElement> StorageElements { get; set; }
+        //public DbSet<Drawer> Drawers { get; set; }
+        //public DbSet<Shelf> Shelves { get; set; }
         public DbSet<Item> Items { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

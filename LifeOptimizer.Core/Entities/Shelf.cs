@@ -1,4 +1,4 @@
-﻿namespace LifeOptimizer.Domain
+﻿namespace LifeOptimizer.Core.Entities
 {
 
     public class Shelf

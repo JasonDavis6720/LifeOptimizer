@@ -1,4 +1,5 @@
-﻿using LifeOptimizer.Server.Models;
+﻿using LifeOptimizer.Core.Entities;
+using LifeOptimizer.Server.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -18,8 +19,8 @@ namespace LifeOptimizer.Server.Data
         //public DbSet<StorageItem> StorageItems { get; set; }
         //public DbSet<FreezerDetails> FreezerDetails { get; set; } // Add this line
         //public DbSet<Shelf> Shelves { get; set; }
-        public DbSet<Drawer> Drawers { get; set; }
-        public DbSet<InventoryItem> InventoryItems { get; set; }
+        //public DbSet<Drawer> Drawers { get; set; }
+        public DbSet<Item> Items { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -27,11 +28,11 @@ namespace LifeOptimizer.Server.Data
             base.OnModelCreating(modelBuilder);
 
             // Configure Drawer -> InventoryItem relationship (1:Many)
-            modelBuilder.Entity<InventoryItem>()
-                .HasOne(ii => ii.Drawer) // Navigation property in InventoryItem
-                .WithMany() // No Navigation property in Drawer
-                .HasForeignKey(ii => ii.DrawerId) // Foreign key in InventoryItem
-                .OnDelete(DeleteBehavior.SetNull); // Set DrawerId to NULL when a Drawer is deleted
+            //modelBuilder.Entity<Item>()
+            //    .HasOne(ii => ii.Drawer) // Navigation property in InventoryItem
+            //    .WithMany() // No Navigation property in Drawer
+            //    .HasForeignKey(ii => ii.DrawerId) // Foreign key in InventoryItem
+            //    .OnDelete(DeleteBehavior.SetNull); // Set DrawerId to NULL when a Drawer is deleted
 
             //modelBuilder.Entity<Dwelling>()
             //    .HasOne(d => d.User)
