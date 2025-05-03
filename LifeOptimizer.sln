@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35913.81
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "LifeOptimizer.Client", "LifeOptimizer.client\LifeOptimizer.client.esproj", "{6EF3FE70-00F6-4881-C4DB-79AF9AE41CCE}"
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "LifeOptimizer.Client", "LifeOptimizer.Client\LifeOptimizer.Client.esproj", "{6EF3FE70-00F6-4881-C4DB-79AF9AE41CCE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeOptimizer.Server", "LifeOptimizer.Server\LifeOptimizer.Server.csproj", "{61195055-0416-4C67-83F5-D9151D93154E}"
 EndProject
