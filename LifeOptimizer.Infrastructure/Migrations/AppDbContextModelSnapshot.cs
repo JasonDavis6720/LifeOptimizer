@@ -175,17 +175,17 @@ namespace LifeOptimizer.Infrastructure.Migrations
 
             modelBuilder.Entity("LifeOptimizer.Core.Entities.StorageElement", b =>
                 {
-                    b.HasOne("LifeOptimizer.Core.Entities.StorageElement", "parent")
+                    b.HasOne("LifeOptimizer.Core.Entities.StorageElement", "Parent")
                         .WithMany("Children")
                         .HasForeignKey("ParentId");
 
-                    b.HasOne("LifeOptimizer.Core.Entities.Room", "room")
+                    b.HasOne("LifeOptimizer.Core.Entities.Room", "Room")
                         .WithMany("StorageElements")
                         .HasForeignKey("RoomId");
 
-                    b.Navigation("parent");
+                    b.Navigation("Parent");
 
-                    b.Navigation("room");
+                    b.Navigation("Room");
                 });
 
             modelBuilder.Entity("LifeOptimizer.Core.Entities.Dwelling", b =>

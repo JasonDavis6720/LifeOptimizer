@@ -15,6 +15,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IItemService, ItemService>();
 builder.Services.AddScoped<IItemRepository, ItemRepository>();
 
+builder.Services.AddScoped<IStorageElementService, StorageElementService>();
+builder.Services.AddScoped<IStorageElementRepository, StorageElementRepository>();
+
+
 // Add controllers and JSON options
 
 builder.Services.AddControllers();

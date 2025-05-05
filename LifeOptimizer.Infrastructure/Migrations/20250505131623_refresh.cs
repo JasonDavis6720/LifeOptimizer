@@ -1,11 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace LifeOptimizer.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class ModelRefactorParentRelationships : Migration
+    public partial class refresh : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -82,7 +83,12 @@ namespace LifeOptimizer.Infrastructure.Migrations
                     ItemId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StorageElementId = table.Column<int>(type: "int", nullable: false)
+                    Category = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Quantity = table.Column<double>(type: "float", nullable: true),
+                    Unit = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ExpirationDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsExpired = table.Column<bool>(type: "bit", nullable: true),
+                    StorageElementId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -91,8 +97,7 @@ namespace LifeOptimizer.Infrastructure.Migrations
                         name: "FK_Items_StorageElements_StorageElementId",
                         column: x => x.StorageElementId,
                         principalTable: "StorageElements",
-                        principalColumn: "StorageElementId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "StorageElementId");
                 });
 
             migrationBuilder.CreateIndex(
