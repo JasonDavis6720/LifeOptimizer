@@ -1,7 +1,5 @@
 ﻿using LifeOptimizer.Application.Interfaces;
 using LifeOptimizer.Core.Entities;
-using LifeOptimizer.Server.Dtos;
-using LifeOptimizer.Server.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LifeOptimizer.Server.Controllers

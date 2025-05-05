@@ -11,6 +11,8 @@
         public string State { get; set; }
         public string ZipCode { get; set; }
         public string Country { get; set; } = "USA";
-        public string UserId { get; set; } // Foreign key to the User
+        public ICollection<Room> Rooms { get; set; }
+
+
     }
 }

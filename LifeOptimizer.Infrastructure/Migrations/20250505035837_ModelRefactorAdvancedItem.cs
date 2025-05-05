@@ -5,7 +5,7 @@
 namespace LifeOptimizer.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class ItemChanges : Migration
+    public partial class ModelRefactorAdvancedItem : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

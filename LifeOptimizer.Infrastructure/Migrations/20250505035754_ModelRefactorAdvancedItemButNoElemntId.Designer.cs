@@ -4,6 +4,7 @@ using LifeOptimizer.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LifeOptimizer.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250505035754_ModelRefactorAdvancedItemButNoElemntId")]
+    partial class ModelRefactorAdvancedItemButNoElemntId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -155,11 +158,9 @@ namespace LifeOptimizer.Infrastructure.Migrations
 
             modelBuilder.Entity("LifeOptimizer.Core.Entities.Item", b =>
                 {
-                    b.HasOne("LifeOptimizer.Core.Entities.StorageElement", "StorageElement")
+                    b.HasOne("LifeOptimizer.Core.Entities.StorageElement", null)
                         .WithMany("Items")
                         .HasForeignKey("StorageElementId");
-
-                    b.Navigation("StorageElement");
                 });
 
             modelBuilder.Entity("LifeOptimizer.Core.Entities.Room", b =>

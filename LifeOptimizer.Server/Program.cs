@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using LifeOptimizer.Infrastructure.Data;
 using LifeOptimizer.Application.Interfaces;
-using LifeOptimizer.Application.Services;
 using LifeOptimizer.Core.Interfaces;
+using LifeOptimizer.Server.Services;
 using LifeOptimizer.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);

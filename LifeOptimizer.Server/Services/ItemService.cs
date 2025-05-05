@@ -2,7 +2,7 @@
 using LifeOptimizer.Core.Interfaces;
 using LifeOptimizer.Application.Interfaces;
 
-namespace LifeOptimizer.Application.Services
+namespace LifeOptimizer.Server.Services
 {
     public class ItemService : IItemService
     {

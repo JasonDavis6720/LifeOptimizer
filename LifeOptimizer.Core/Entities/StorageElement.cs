@@ -5,10 +5,16 @@
         public int StorageElementId { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
+
+        public int? ParentId { get; set; } // Foreign key to the parent StorageElement (if any)
+        public StorageElement parent { get; set; } // Navigation property to the parent StorageElement (if any)
+
         public int? RoomId { get; set; } // Foreign key to the Room
-        public List<Item> Items { get; set; } = new List<Item>();
-        public List<Drawer> Drawers { get; set; } = new List<Drawer>();
-        public List<Shelf> Shelves { get; set; } = new List<Shelf>();
+        public Room room { get; set; } // Navigation property to the Room
+
+        public ICollection<StorageElement> Children { get; set; } // Collection of child StorageElements (if any)
+        public ICollection<Item> Items { get; set; } // Collection of items stored in this StorageElement
+
     }
 }
 
