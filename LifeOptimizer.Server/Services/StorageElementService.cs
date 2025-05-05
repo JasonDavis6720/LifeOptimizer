@@ -1,16 +1,22 @@
 ﻿using LifeOptimizer.Core.Entities;
 using LifeOptimizer.Core.Interfaces;
 using LifeOptimizer.Application.Interfaces;
+using LifeOptimizer.Application.DTOs;
+using Microsoft.EntityFrameworkCore;
+using LifeOptimizer.Infrastructure.Data;
 
 namespace LifeOptimizer.Server.Services
 {
     public class StorageElementService : IStorageElementService
     {
+        private readonly AppDbContext _context;
         private readonly IStorageElementRepository _StorageElementRepository;
 
-        public StorageElementService(IStorageElementRepository StorageElementRepository)
+        public StorageElementService(AppDbContext context, IStorageElementRepository StorageElementRepository)
         {
+            _context = context;
             _StorageElementRepository = StorageElementRepository;
+
         }
 
         public async Task<StorageElement> CreateStorageElementAsync(StorageElementDto storageElementDto)
@@ -24,10 +30,14 @@ namespace LifeOptimizer.Server.Services
                 RoomId = storageElementDto.RoomId
             };
 
-            // Add any additional business logic here (e.g., validation)
+            // Save the StorageElement
+            _context.StorageElements.Add(storageElement);
+            await _context.SaveChangesAsync();
 
-            // Pass the domain entity to the repository
-            return await _StorageElementRepository.AddStorageElementAsync(storageElement);
+            // Eagerly load the Room navigation property
+            _context.Entry(storageElement).Reference(se => se.Room).Load();
+
+            return storageElement;
         }
 
     }

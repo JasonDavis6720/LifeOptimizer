@@ -3,8 +3,8 @@ using LifeOptimizer.Core.Entities;
 
 namespace LifeOptimizer.Application.Interfaces
 {
-    public interface IStorageElementService
+    public interface IRoomService
     {
-        Task<StorageElement> CreateStorageElementAsync(StorageElementDto storageElementDto);
+        Task<Room> CreateRoomAsync(RoomDto roomDto);
     }
 }

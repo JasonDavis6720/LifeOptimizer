@@ -18,16 +18,17 @@ builder.Services.AddScoped<IItemRepository, ItemRepository>();
 builder.Services.AddScoped<IStorageElementService, StorageElementService>();
 builder.Services.AddScoped<IStorageElementRepository, StorageElementRepository>();
 
+builder.Services.AddScoped<IRoomService, RoomService>();
+builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+
 
 // Add controllers and JSON options
 
-builder.Services.AddControllers();
-// Uncomment the following lines if you need to deal with circular references in JSON serialization
-
-//    .AddJsonOptions(options =>
-//    {
-//        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
-//    });
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+    });
 
 // Configure Swagger
 builder.Services.AddEndpointsApiExplorer();

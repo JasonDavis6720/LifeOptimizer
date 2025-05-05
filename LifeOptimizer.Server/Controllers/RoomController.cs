@@ -7,33 +7,33 @@ namespace LifeOptimizer.Server.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class StorageElementController : ControllerBase
+    public class RoomController : ControllerBase
     {
-        private readonly IStorageElementService _StorageElementService;
-        public StorageElementController(IStorageElementService StorageElementService)
+        private readonly IRoomService _RoomService;
+        public RoomController(IRoomService RoomService)
         {
-            _StorageElementService = StorageElementService;
+            _RoomService = RoomService;
         }
         //[HttpGet]
-        //public async Task<IActionResult> GetAllStorageElementsAsync()
+        //public async Task<IActionResult> GetAllRoomsAsync()
         //{
-        //    var response = await _StorageElementService.GetAllStorageElementsAsync();
+        //    var response = await _RoomService.GetAllRoomsAsync();
         //    return Ok(response);
         //}
-        ////GET: api/StorageElement/{id}
+        ////GET: api/Room/{id}
         //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetStorageElementByIdAsync(int id)
+        //public async Task<IActionResult> GetRoomByIdAsync(int id)
         //{
-        //    var response = await _StorageElementService.GetStorageElementByIdAsync(id);
+        //    var response = await _RoomService.GetRoomByIdAsync(id);
         //    if (response == null)
         //    {
         //        return NotFound();
         //    }
         //    return Ok(response);
         //}
-        //// POST: api/StorageElement
+        //// POST: api/Room
         [HttpPost]
-        public async Task<IActionResult> CreateStorageElementAsync([FromBody] StorageElementDto storageElementDto)
+        public async Task<IActionResult> CreateRoomAsync([FromBody] RoomDto storageElementDto)
         {
             if (!ModelState.IsValid)
             {
@@ -41,7 +41,7 @@ namespace LifeOptimizer.Server.Controllers
             }
             try
             {
-                var response = await _StorageElementService.CreateStorageElementAsync(storageElementDto);
+                var response = await _RoomService.CreateRoomAsync(storageElementDto);
                 return Ok(response); // Return the created item directly
             }
             catch (InvalidOperationException ex)
@@ -50,16 +50,16 @@ namespace LifeOptimizer.Server.Controllers
             }
         }
 
-        //// Post: api/StorageElement/{id}
+        //// Post: api/Room/{id}
         //[HttpPut("{id}")]
-        //public async Task<IActionResult> UpdateStorageElementAsync(int id, [FromBody] UpdateStorageElementDto updatedStorageElementDto)
+        //public async Task<IActionResult> UpdateRoomAsync(int id, [FromBody] UpdateRoomDto updatedRoomDto)
         //{
         //    if (!ModelState.IsValid)
         //    {
         //        return BadRequest(ModelState);
         //    }
 
-        //    var response = await _StorageElementService.UpdateStorageElementAsync(id, updatedStorageElementDto);
+        //    var response = await _RoomService.UpdateRoomAsync(id, updatedRoomDto);
         //    if (response == null)
         //    {
         //        return NotFound(); // Return 404 if the inventory item does not exist
@@ -68,11 +68,11 @@ namespace LifeOptimizer.Server.Controllers
         //    return Ok(response); // Return the updated item
         //}
 
-        //// DELETE: api/StorageElement/{id}
+        //// DELETE: api/Room/{id}
         //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteStorageElementByIdAsync(int id)
+        //public async Task<IActionResult> DeleteRoomByIdAsync(int id)
         //{
-        //    var success = await _StorageElementService.DeleteStorageElementAsync(id);
+        //    var success = await _RoomService.DeleteRoomAsync(id);
         //    if (!success)
         //    {
         //        return NotFound(); // Return 404 if the inventory item does not exist
