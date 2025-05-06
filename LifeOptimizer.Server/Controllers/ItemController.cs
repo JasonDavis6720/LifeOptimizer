@@ -20,20 +20,20 @@ namespace LifeOptimizer.Server.Controllers
             var items = await _ItemService.GetAllItemsAsync();
             return Ok(items);
         }
-        ////GET: api/InventoryItem/{id}
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetInventoryItemByIdAsync(int id)
-        //{
-        //    var response = await _ItemService.GetInventoryItemByIdAsync(id);
-        //    if (response == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok(response);
-        //}
+        //GET: api/InventoryItem/{id}
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetItemByIdAsync(int id)
+        {
+            var item = await _ItemService.GetItemByIdAsync(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            return Ok(item);
+        }
         //// POST: api/InventoryItem
         [HttpPost]
-        public async Task<IActionResult> CreateInventoryItemAsync([FromBody] CreateItemDto Item)
+        public async Task<IActionResult> CreateItemAsync([FromBody] CreateItemDto Item)
         {
             if (!ModelState.IsValid)
             {
@@ -42,7 +42,8 @@ namespace LifeOptimizer.Server.Controllers
             try
             {
                 var response = await _ItemService.CreateItemAsync(Item);
-                return Ok(response); // Return the created item directly
+                //return Ok(response); // Return the created item directly
+                return Ok($"Item: {response.Name} created successfully with ID: {response.ItemId}");
             }
             catch (InvalidOperationException ex)
             {

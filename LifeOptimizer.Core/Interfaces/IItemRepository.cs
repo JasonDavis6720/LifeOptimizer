@@ -7,5 +7,6 @@ namespace LifeOptimizer.Core.Interfaces
     {
         Task<Item> AddItemAsync(Item item);
         Task<List<Item>> GetAllItemsAsync();
+        Task<Item> GetItemByIdAsync(int id);
     }
 }

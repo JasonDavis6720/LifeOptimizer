@@ -3,6 +3,7 @@ using LifeOptimizer.Core.Interfaces;
 using LifeOptimizer.Application.Interfaces;
 using LifeOptimizer.Application.DTOs;
 using LifeOptimizer.Infrastructure.Data;
+using AutoMapper;
 
 
 
@@ -12,12 +13,14 @@ namespace LifeOptimizer.Server.Services
     {
         private readonly IItemRepository _itemRepository;
         private readonly AppDbContext _context;
+        private readonly IMapper _mapper;
 
-        public ItemService(AppDbContext context, IItemRepository itemRepository)
+        public ItemService(AppDbContext context, IItemRepository itemRepository, IMapper mapper)
         {
             _context = context;
             _itemRepository = itemRepository;
-            
+            _mapper = mapper;
+
         }
 
         public async Task<Item> CreateItemAsync(CreateItemDto itemDto)
@@ -42,9 +45,20 @@ namespace LifeOptimizer.Server.Services
             //return await _itemRepository.AddItemAsync(item);
         }
 
-        public async Task<List<Item>> GetAllItemsAsync()
+        public async Task<List<ItemReturnDto>> GetAllItemsAsync()
         {
-            return await _itemRepository.GetAllItemsAsync();
+            var items = await _itemRepository.GetAllItemsAsync();
+            return _mapper.Map<List<ItemReturnDto>>(items);
+        }
+
+        public async Task<ItemReturnDto> GetItemByIdAsync(int id)
+        {
+            var item = await _itemRepository.GetItemByIdAsync(id);
+            if (item == null)
+            {
+                return null;
+            }
+            return _mapper.Map<ItemReturnDto>(item);
         }
     }
 }
