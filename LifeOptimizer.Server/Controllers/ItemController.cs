@@ -43,7 +43,7 @@ namespace LifeOptimizer.Server.Controllers
             {
                 var response = await _ItemService.CreateItemAsync(Item);
                 //return Ok(response); // Return the created item directly
-                return Ok($"Item: {response.Name} created successfully with ID: {response.ItemId}");
+                return Ok($"Item: {response.Name} created successfully");
             }
             catch (InvalidOperationException ex)
             {

@@ -48,7 +48,7 @@ namespace LifeOptimizer.Server.Controllers
                 var element = await _StorageElementService.CreateStorageElementAsync(storageElementDto);
                 var responseDto = _mapper.Map<StorageElementDto>(element);
 
-                return Ok(responseDto); // Return the created item directly
+                return Ok($"Storage Element: {responseDto.Name} created successfully");
             }
             catch (InvalidOperationException ex)
             {
