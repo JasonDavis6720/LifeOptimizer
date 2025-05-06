@@ -1,4 +1,5 @@
 ﻿using LifeOptimizer.Application.Interfaces;
+using LifeOptimizer.Application.DTOs;
 using LifeOptimizer.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,26 +14,26 @@ namespace LifeOptimizer.Server.Controllers
         {
             _ItemService = ItemService;
         }
-        //[HttpGet]
-        //public async Task<IActionResult> GetAllInventoryItemsAsync()
-        //{
-        //    var response = await _ItemService.GetAllInventoryItemsAsync();
-        //    return Ok(response);
-        //}
-        ////GET: api/InventoryItem/{id}
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetInventoryItemByIdAsync(int id)
-        //{
-        //    var response = await _ItemService.GetInventoryItemByIdAsync(id);
-        //    if (response == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok(response);
-        //}
+        [HttpGet]
+        public async Task<ActionResult<List<ItemReturnDto>>> GetAllItemsAsync()
+        {
+            var items = await _ItemService.GetAllItemsAsync();
+            return Ok(items);
+        }
+        //GET: api/InventoryItem/{id}
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetItemByIdAsync(int id)
+        {
+            var item = await _ItemService.GetItemByIdAsync(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            return Ok(item);
+        }
         //// POST: api/InventoryItem
         [HttpPost]
-        public async Task<IActionResult> CreateInventoryItemAsync([FromBody] Item Item)
+        public async Task<IActionResult> CreateItemAsync([FromBody] CreateItemDto Item)
         {
             if (!ModelState.IsValid)
             {
@@ -41,7 +42,8 @@ namespace LifeOptimizer.Server.Controllers
             try
             {
                 var response = await _ItemService.CreateItemAsync(Item);
-                return Ok(response); // Return the created item directly
+                //return Ok(response); // Return the created item directly
+                return Ok($"Item: {response.Name} created successfully");
             }
             catch (InvalidOperationException ex)
             {
