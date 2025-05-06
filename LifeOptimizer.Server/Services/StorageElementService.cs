@@ -19,7 +19,7 @@ namespace LifeOptimizer.Server.Services
 
         }
 
-        public async Task<StorageElement> CreateStorageElementAsync(StorageElementDto storageElementDto)
+        public async Task<StorageElement> CreateStorageElementAsync(CreateStorageElementDto storageElementDto)
         {
             // Convert DTO to domain entity
             var storageElement = new StorageElement
@@ -27,7 +27,7 @@ namespace LifeOptimizer.Server.Services
                 Name = storageElementDto.Name,
                 Type = storageElementDto.Type,
                 ParentId = storageElementDto.ParentId,
-                RoomId = storageElementDto.RoomId
+                RoomId = storageElementDto.RoomId,
             };
 
             // Save the StorageElement

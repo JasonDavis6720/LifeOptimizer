@@ -5,6 +5,6 @@ namespace LifeOptimizer.Application.Interfaces
 {
     public interface IStorageElementService
     {
-        Task<StorageElement> CreateStorageElementAsync(StorageElementDto storageElementDto);
+        Task<StorageElement> CreateStorageElementAsync(CreateStorageElementDto storageElementDto);
     }
 }

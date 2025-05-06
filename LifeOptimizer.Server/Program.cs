@@ -4,6 +4,8 @@ using LifeOptimizer.Application.Interfaces;
 using LifeOptimizer.Core.Interfaces;
 using LifeOptimizer.Server.Services;
 using LifeOptimizer.Infrastructure.Repositories;
+using LifeOptimizer.Application.Mappings;
+using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,14 +23,15 @@ builder.Services.AddScoped<IStorageElementRepository, StorageElementRepository>(
 builder.Services.AddScoped<IRoomService, RoomService>();
 builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 
+builder.Services.AddAutoMapper(cfg =>
+{
+    cfg.AddProfile<StorageElementProfile>();
+    cfg.AddProfile<ItemProfile>();
+});
 
 // Add controllers and JSON options
 
-builder.Services.AddControllers()
-    .AddJsonOptions(options =>
-    {
-        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
-    });
+builder.Services.AddControllers();
 
 // Configure Swagger
 builder.Services.AddEndpointsApiExplorer();

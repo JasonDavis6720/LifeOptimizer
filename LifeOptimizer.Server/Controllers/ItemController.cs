@@ -1,4 +1,5 @@
 ﻿using LifeOptimizer.Application.Interfaces;
+using LifeOptimizer.Application.DTOs;
 using LifeOptimizer.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,12 +14,12 @@ namespace LifeOptimizer.Server.Controllers
         {
             _ItemService = ItemService;
         }
-        //[HttpGet]
-        //public async Task<IActionResult> GetAllInventoryItemsAsync()
-        //{
-        //    var response = await _ItemService.GetAllInventoryItemsAsync();
-        //    return Ok(response);
-        //}
+        [HttpGet]
+        public async Task<ActionResult<List<ItemReturnDto>>> GetAllItemsAsync()
+        {
+            var items = await _ItemService.GetAllItemsAsync();
+            return Ok(items);
+        }
         ////GET: api/InventoryItem/{id}
         //[HttpGet("{id}")]
         //public async Task<IActionResult> GetInventoryItemByIdAsync(int id)
@@ -32,7 +33,7 @@ namespace LifeOptimizer.Server.Controllers
         //}
         //// POST: api/InventoryItem
         [HttpPost]
-        public async Task<IActionResult> CreateInventoryItemAsync([FromBody] Item Item)
+        public async Task<IActionResult> CreateInventoryItemAsync([FromBody] CreateItemDto Item)
         {
             if (!ModelState.IsValid)
             {

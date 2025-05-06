@@ -1,6 +1,6 @@
 ﻿namespace LifeOptimizer.Application.DTOs
 {
-    public class StorageElementDto
+    public class CreateStorageElementDto
     {
         public string Name { get; set; }
         public string Type { get; set; }

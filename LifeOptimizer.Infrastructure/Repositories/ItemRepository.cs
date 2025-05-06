@@ -2,6 +2,7 @@
 using LifeOptimizer.Infrastructure.Data;
 using LifeOptimizer.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using LifeOptimizer.Application.DTOs;
 
 namespace LifeOptimizer.Infrastructure.Repositories
 {
@@ -20,5 +21,15 @@ namespace LifeOptimizer.Infrastructure.Repositories
             await _dbContext.SaveChangesAsync();
             return item;
         }
+
+        public async Task<List<Item>> GetAllItemsAsync()
+        {
+            return await _dbContext.Items
+                .Include(i => i.StorageElement) // Eagerly load the StorageElement
+                .ToListAsync();
+        }
+
     }
+
 }
+
