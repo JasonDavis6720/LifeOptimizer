@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LifeOptimizer.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class refresh : Migration
+    public partial class UserIdPropertytoItem : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -31,23 +31,22 @@ namespace LifeOptimizer.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Room",
+                name: "Rooms",
                 columns: table => new
                 {
                     RoomId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DwellingId = table.Column<int>(type: "int", nullable: false)
+                    DwellingId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Room", x => x.RoomId);
+                    table.PrimaryKey("PK_Rooms", x => x.RoomId);
                     table.ForeignKey(
-                        name: "FK_Room_Dwellings_DwellingId",
+                        name: "FK_Rooms_Dwellings_DwellingId",
                         column: x => x.DwellingId,
                         principalTable: "Dwellings",
-                        principalColumn: "DwellingId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "DwellingId");
                 });
 
             migrationBuilder.CreateTable(
@@ -65,9 +64,9 @@ namespace LifeOptimizer.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_StorageElements", x => x.StorageElementId);
                     table.ForeignKey(
-                        name: "FK_StorageElements_Room_RoomId",
+                        name: "FK_StorageElements_Rooms_RoomId",
                         column: x => x.RoomId,
-                        principalTable: "Room",
+                        principalTable: "Rooms",
                         principalColumn: "RoomId");
                     table.ForeignKey(
                         name: "FK_StorageElements_StorageElements_ParentId",
@@ -88,7 +87,8 @@ namespace LifeOptimizer.Infrastructure.Migrations
                     Unit = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ExpirationDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsExpired = table.Column<bool>(type: "bit", nullable: true),
-                    StorageElementId = table.Column<int>(type: "int", nullable: true)
+                    StorageElementId = table.Column<int>(type: "int", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -106,8 +106,8 @@ namespace LifeOptimizer.Infrastructure.Migrations
                 column: "StorageElementId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Room_DwellingId",
-                table: "Room",
+                name: "IX_Rooms_DwellingId",
+                table: "Rooms",
                 column: "DwellingId");
 
             migrationBuilder.CreateIndex(
@@ -131,7 +131,7 @@ namespace LifeOptimizer.Infrastructure.Migrations
                 name: "StorageElements");
 
             migrationBuilder.DropTable(
-                name: "Room");
+                name: "Rooms");
 
             migrationBuilder.DropTable(
                 name: "Dwellings");

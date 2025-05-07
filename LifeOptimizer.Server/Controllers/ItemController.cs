@@ -14,12 +14,12 @@ namespace LifeOptimizer.Server.Controllers
         {
             _ItemService = ItemService;
         }
-        [HttpGet]
-        public async Task<ActionResult<List<ItemReturnDto>>> GetAllItemsAsync()
-        {
-            var items = await _ItemService.GetAllItemsAsync();
-            return Ok(items);
-        }
+        //[HttpGet]
+        //public async Task<ActionResult<List<ItemReturnDto>>> GetAllItemsAsync()
+        //{
+        //    var items = await _ItemService.GetAllItemsAsync();
+        //    return Ok(items);
+        //}
         //GET: api/InventoryItem/{id}
         [HttpGet("{id}")]
         public async Task<IActionResult> GetItemByIdAsync(int id)
@@ -51,6 +51,12 @@ namespace LifeOptimizer.Server.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<ActionResult<List<ItemReturnDto>>> GetItems()
+        {
+            var items = await _ItemService.GetAllItemsAsync();
+            return Ok(items);
+        }
         //// Post: api/InventoryItem/{id}
         //[HttpPut("{id}")]
         //public async Task<IActionResult> UpdateInventoryItemAsync(int id, [FromBody] UpdateInventoryItemDto updatedItemDto)
@@ -82,4 +88,3 @@ namespace LifeOptimizer.Server.Controllers
         //}
     }
 }
-       

@@ -19,6 +19,7 @@ namespace LifeOptimizer.Core.Entities
         public int? StorageElementId { get; set; } // Foreign key to the StorageElement
         public StorageElement? StorageElement { get; set; } // Navigation property to the StorageElement
 
+        public string UserId { get; set; }
     }
 
 }

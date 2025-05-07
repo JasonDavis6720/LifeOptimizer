@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LifeOptimizer.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250505131623_refresh")]
-    partial class refresh
+    [Migration("20250507035813_UserIdPropertytoItem")]
+    partial class UserIdPropertytoItem
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -96,6 +96,10 @@ namespace LifeOptimizer.Infrastructure.Migrations
                     b.Property<string>("Unit")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("ItemId");
 
                     b.HasIndex("StorageElementId");
@@ -111,7 +115,7 @@ namespace LifeOptimizer.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoomId"));
 
-                    b.Property<int>("DwellingId")
+                    b.Property<int?>("DwellingId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -122,7 +126,7 @@ namespace LifeOptimizer.Infrastructure.Migrations
 
                     b.HasIndex("DwellingId");
 
-                    b.ToTable("Room");
+                    b.ToTable("Rooms");
                 });
 
             modelBuilder.Entity("LifeOptimizer.Core.Entities.StorageElement", b =>
@@ -169,9 +173,7 @@ namespace LifeOptimizer.Infrastructure.Migrations
                 {
                     b.HasOne("LifeOptimizer.Core.Entities.Dwelling", "dwelling")
                         .WithMany("Rooms")
-                        .HasForeignKey("DwellingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DwellingId");
 
                     b.Navigation("dwelling");
                 });

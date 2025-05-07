@@ -5,7 +5,7 @@ namespace LifeOptimizer.Application.Interfaces
 {
     public interface IItemService
     {
-        Task<Item> CreateItemAsync(CreateItemDto item);
+        Task<ItemReturnDto> CreateItemAsync(CreateItemDto item);
         Task<List<ItemReturnDto>> GetAllItemsAsync();
         Task<ItemReturnDto> GetItemByIdAsync(int id);
     }

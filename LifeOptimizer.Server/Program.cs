@@ -6,6 +6,7 @@ using LifeOptimizer.Server.Services;
 using LifeOptimizer.Infrastructure.Repositories;
 using LifeOptimizer.Application.Mappings;
 using AutoMapper;
+using LifeOptimizer.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +23,8 @@ builder.Services.AddScoped<IStorageElementRepository, StorageElementRepository>(
 
 builder.Services.AddScoped<IRoomService, RoomService>();
 builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+
+builder.Services.AddScoped<IUserContextService, StubUserContextService>();
 
 builder.Services.AddAutoMapper(cfg =>
 {
