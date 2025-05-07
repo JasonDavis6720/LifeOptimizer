@@ -12,5 +12,7 @@ namespace LifeOptimizer.Application.DTOs
         public DateTime? ExpirationDate { get; set; } // Nullable for non-perishable items
         public bool? IsExpired { get; set; } // Nullable to indicate if the expiration status is unknown
         public int? StorageElementId { get; set; } // Foreign key to the StorageElement
+        public string UserId { get; set; } = string.Empty;
+
     }
 }
