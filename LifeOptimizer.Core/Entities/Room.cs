@@ -1,17 +1,24 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LifeOptimizer.Core.Entities
 {
     public class Room
     {
         [Key]
-        public int RoomId { get; set; } // Primary key
+        public int RoomId { get; set; }
+
         [Required]
         public string UserId { get; set; }
-        public string Name { get; set; } // Name of the room (e.g., "Kitchen", "Living Room")
-        public int? DwellingId { get; set; } // Foreign key to the Dwelling
-        public Dwelling? dwelling { get; set; } // Navigation property to the Dwelling
-        public ICollection<StorageElement> StorageElements { get; set; } // Collection of storage elements in the room
 
+        [Required]
+        public string Name { get; set; }
+
+        public int? DwellingId { get; set; }
+
+        [ForeignKey(nameof(DwellingId))]
+        public Dwelling? Dwelling { get; set; }
+
+        public ICollection<StorageElement> StorageElements { get; set; } = new List<StorageElement>();
     }
 }

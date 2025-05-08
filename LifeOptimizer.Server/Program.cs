@@ -30,6 +30,7 @@ builder.Services.AddAutoMapper(cfg =>
 {
     cfg.AddProfile<StorageElementProfile>();
     cfg.AddProfile<ItemProfile>();
+    cfg.AddProfile<RoomProfile>();
 });
 
 // Add controllers and JSON options

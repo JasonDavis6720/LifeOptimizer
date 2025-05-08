@@ -1,10 +1,9 @@
-﻿using LifeOptimizer.Application.DTOs;
-using LifeOptimizer.Core.Entities;
+﻿using LifeOptimizer.Application.Dtos;
 
 namespace LifeOptimizer.Application.Interfaces
 {
     public interface IRoomService
     {
-        Task<Room> CreateRoomAsync(RoomDto roomDto);
+        Task<RoomReturnDto> CreateRoomAsync(CreateRoomDto roomDto);
     }
 }

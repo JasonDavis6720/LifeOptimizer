@@ -2,7 +2,6 @@
 using LifeOptimizer.Infrastructure.Data;
 using LifeOptimizer.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using LifeOptimizer.Application.DTOs;
 
 namespace LifeOptimizer.Infrastructure.Repositories
 {

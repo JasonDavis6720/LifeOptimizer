@@ -1,4 +1,4 @@
-﻿using LifeOptimizer.Application.DTOs;
+﻿using LifeOptimizer.Application.Dtos;
 using LifeOptimizer.Core.Entities;
 using AutoMapper;
 

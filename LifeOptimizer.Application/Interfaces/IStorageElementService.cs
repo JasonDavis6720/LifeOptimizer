@@ -1,5 +1,5 @@
-﻿using LifeOptimizer.Application.DTOs;
-using LifeOptimizer.Core.Entities;
+﻿using LifeOptimizer.Application.Dtos;
+
 
 namespace LifeOptimizer.Application.Interfaces
 {

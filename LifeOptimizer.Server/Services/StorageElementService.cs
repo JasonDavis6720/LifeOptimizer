@@ -1,7 +1,7 @@
 ﻿using LifeOptimizer.Core.Entities;
 using LifeOptimizer.Core.Interfaces;
 using LifeOptimizer.Application.Interfaces;
-using LifeOptimizer.Application.DTOs;
+using LifeOptimizer.Application.Dtos;
 using Microsoft.EntityFrameworkCore;
 using LifeOptimizer.Infrastructure.Data;
 using AutoMapper;

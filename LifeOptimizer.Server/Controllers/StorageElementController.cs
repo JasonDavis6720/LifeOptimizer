@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using LifeOptimizer.Application.DTOs;
+using LifeOptimizer.Application.Dtos;
 using LifeOptimizer.Application.Interfaces;
 using LifeOptimizer.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
