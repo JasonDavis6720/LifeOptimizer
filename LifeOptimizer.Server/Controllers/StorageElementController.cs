@@ -11,12 +11,10 @@ namespace LifeOptimizer.Server.Controllers
     public class StorageElementController : ControllerBase
     {
         private readonly IStorageElementService _StorageElementService;
-        private readonly IMapper _mapper;
 
         public StorageElementController(IStorageElementService StorageElementService, IMapper mapper)
         {
             _StorageElementService = StorageElementService;
-            _mapper = mapper;
         }
         //[HttpGet]
         //public async Task<IActionResult> GetAllStorageElementsAsync()
@@ -37,7 +35,7 @@ namespace LifeOptimizer.Server.Controllers
         //}
         //// POST: api/StorageElement
         [HttpPost]
-        public async Task<ActionResult<StorageElementDto>> CreateStorageElementAsync([FromBody] CreateStorageElementDto storageElementDto)
+        public async Task<ActionResult<CreateStorageElementDto>> CreateStorageElementAsync([FromBody] CreateStorageElementDto storageElementDto)
         {
             if (!ModelState.IsValid)
             {
@@ -45,10 +43,8 @@ namespace LifeOptimizer.Server.Controllers
             }
             try
             {
-                var element = await _StorageElementService.CreateStorageElementAsync(storageElementDto);
-                var responseDto = _mapper.Map<StorageElementDto>(element);
-
-                return Ok($"Storage Element: {responseDto.Name} created successfully");
+                var element = await _StorageElementService.CreateStorageElementByIdAsync(storageElementDto);
+                return Ok($"Storage Element: {storageElementDto.Name} created successfully");
             }
             catch (InvalidOperationException ex)
             {

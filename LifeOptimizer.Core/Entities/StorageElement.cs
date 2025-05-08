@@ -6,15 +6,16 @@
         public string Name { get; set; }
         public string Type { get; set; }
 
-        public int? ParentId { get; set; } // Foreign key to the parent StorageElement (if any)
-        public StorageElement? Parent { get; set; } // Navigation property to the parent StorageElement (if any)
+        public int? ParentId { get; set; }
+        public StorageElement Parent { get; set; }
 
-        public int? RoomId { get; set; } // Foreign key to the Room
-        public Room? Room { get; set; } // Navigation property to the Room
+        public int? RoomId { get; set; }
+        public Room Room { get; set; }
 
-        public ICollection<StorageElement> Children { get; set; } // Collection of child StorageElements (if any)
-        public ICollection<Item> Items { get; set; } // Collection of items stored in this StorageElement
+        public string UserId { get; set; }
 
+        public ICollection<StorageElement> Children { get; set; }
+        public ICollection<Item> Items { get; set; }
     }
 }
 

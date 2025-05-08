@@ -20,5 +20,14 @@ namespace LifeOptimizer.Infrastructure.Repositories
             await _dbContext.SaveChangesAsync();
             return item;
         }
+
+        public async Task<List<StorageElement>> GetStorageElementsByUserIdAsync (string userId)
+        {
+            return await _dbContext.StorageElements
+                .Where(i => i.UserId == userId)
+                .Include(i => i.Items) // Eagerly load the StorageElement
+                .ToListAsync();
+        }
+
     }
 }

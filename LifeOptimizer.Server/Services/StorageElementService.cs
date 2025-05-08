@@ -4,40 +4,37 @@ using LifeOptimizer.Application.Interfaces;
 using LifeOptimizer.Application.DTOs;
 using Microsoft.EntityFrameworkCore;
 using LifeOptimizer.Infrastructure.Data;
+using AutoMapper;
+using LifeOptimizer.Infrastructure.Repositories;
 
 namespace LifeOptimizer.Server.Services
 {
     public class StorageElementService : IStorageElementService
     {
         private readonly AppDbContext _context;
-        private readonly IStorageElementRepository _StorageElementRepository;
+        private readonly IStorageElementRepository _storageElementRepository;
+        private readonly IMapper _mapper;
+        private readonly IUserContextService _user;
 
-        public StorageElementService(AppDbContext context, IStorageElementRepository StorageElementRepository)
+        public StorageElementService(AppDbContext context, IStorageElementRepository storageElementRepository, IMapper mapper, IUserContextService user)
         {
             _context = context;
-            _StorageElementRepository = StorageElementRepository;
+            _storageElementRepository = storageElementRepository;
+            _mapper = mapper;
+            _user = user;
 
         }
 
-        public async Task<StorageElement> CreateStorageElementAsync(CreateStorageElementDto storageElementDto)
+        public async Task<StorageElementReturnDto> CreateStorageElementByIdAsync(CreateStorageElementDto storageElementDto)
         {
             // Convert DTO to domain entity
-            var storageElement = new StorageElement
-            {
-                Name = storageElementDto.Name,
-                Type = storageElementDto.Type,
-                ParentId = storageElementDto.ParentId,
-                RoomId = storageElementDto.RoomId,
-            };
+            var userId = _user.GetCurrentUserId();
+            var element = _mapper.Map<StorageElement>(storageElementDto);
+            element.UserId = userId;
 
-            // Save the StorageElement
-            _context.StorageElements.Add(storageElement);
-            await _context.SaveChangesAsync();
-
-            // Eagerly load the Room navigation property
-            _context.Entry(storageElement).Reference(se => se.Room).Load();
-
-            return storageElement;
+            var savedElement = await _storageElementRepository.AddStorageElementAsync(element);
+            
+            return _mapper.Map<StorageElementReturnDto>(savedElement);
         }
 
     }

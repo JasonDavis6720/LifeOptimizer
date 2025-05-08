@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Security.Cryptography.X509Certificates;
 
 namespace LifeOptimizer.Core.Entities
 {
@@ -8,7 +7,8 @@ namespace LifeOptimizer.Core.Entities
 
         [Key]
         public int ItemId { get; set; }
-        
+        [Required]
+        public string UserId { get; set; }
         public string Name { get; set; }
         public string? Category { get; set; } // e.g., "Dairy", "Produce"
         public double? Quantity { get; set; } // e.g., 1.5 liters, 12 eggs
@@ -19,7 +19,6 @@ namespace LifeOptimizer.Core.Entities
         public int? StorageElementId { get; set; } // Foreign key to the StorageElement
         public StorageElement? StorageElement { get; set; } // Navigation property to the StorageElement
 
-        public string UserId { get; set; }
     }
 
 }
