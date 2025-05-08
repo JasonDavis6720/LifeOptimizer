@@ -9,10 +9,14 @@ namespace LifeOptimizer.Application.Mappings
     {
         public StorageElementProfile()
         {
-            CreateMap<StorageElement, StorageElementDto>()
-                .ForMember(dest => dest.RoomId, opt => opt.MapFrom(src => src.Room != null ? src.Room.RoomId : (int?)null))
-                .ForMember(dest => dest.RoomName, opt => opt.MapFrom(src => src.Room != null ? src.Room.Name : null));
-                //.ForMember(dest => dest.Items, opt => opt.MapFrom(src => src.Items));
+            // Map from Create DTO to Entity
+            CreateMap<CreateStorageElementDto, StorageElement>()
+                .ForMember(dest => dest.UserId, opt => opt.Ignore());
+
+            // Map from Entity to Return DTO
+            CreateMap<StorageElement, StorageElementReturnDto>()
+                .ForMember(dest => dest.RoomName,
+                    opt => opt.MapFrom(src => src.Room != null ? src.Room.Name : null));
         }
     }
 }
