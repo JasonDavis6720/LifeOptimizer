@@ -1,8 +1,10 @@
-/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
-/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "baseUrl": "./", // Root of the project
+    "paths": {
+      "src/*": ["src/*"] // Simplify imports
+    },
     "outDir": "./dist/out-tsc",
     "strict": true,
     "noImplicitOverride": true,
@@ -13,10 +15,10 @@
     "isolatedModules": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
-    "moduleResolution": "bundler",
+    "moduleResolution": "node", // Use "node" for Angular projects
     "importHelpers": true,
-    "target": "ES2022",
-    "module": "ES2022"
+    "target": "ES2022", // Modern JavaScript target
+    "module": "ES2022" // Modern module system
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
