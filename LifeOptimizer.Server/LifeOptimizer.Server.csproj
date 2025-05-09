@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <SpaRoot>..\lifeoptimizer.client</SpaRoot>
     <SpaProxyLaunchCommand>npm start</SpaProxyLaunchCommand>
-    <SpaProxyServerUrl>https://localhost:50549</SpaProxyServerUrl>
+    <SpaProxyServerUrl>https://localhost:4700</SpaProxyServerUrl>
   </PropertyGroup>
 
   <ItemGroup>

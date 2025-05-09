@@ -33,7 +33,7 @@ namespace LifeOptimizer.Server.Controllers
         }
         //// POST: api/InventoryItem
         [HttpPost]
-        public async Task<IActionResult> CreateItemAsync([FromBody] CreateItemDto Item)
+        public async Task<IActionResult> CreateItemAsync([FromBody] CreateItemDto item)
         {
             if (!ModelState.IsValid)
             {
@@ -41,9 +41,9 @@ namespace LifeOptimizer.Server.Controllers
             }
             try
             {
-                var response = await _ItemService.CreateItemAsync(Item);
+                var response = await _ItemService.CreateItemAsync(item);
                 //return Ok(response); // Return the created item directly
-                return Ok($"Item: {response.Name} created successfully");
+                return Ok(new { message = $"Item: \"{item.Name}\" created successfully" });
             }
             catch (InvalidOperationException ex)
             {
