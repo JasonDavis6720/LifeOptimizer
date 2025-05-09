@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 interface Item {
   name: string;
-  description: string;
+  category: string;
   // Add other fields as needed
 }
 
@@ -12,7 +12,7 @@ interface Item {
   providedIn: 'root',
 })
 export class ItemService {
-  private apiUrl = 'https://localhost:7142/items'; // Replace with your API endpoint
+  private apiUrl = 'https://localhost:7142/api/Item'; // Replace with your API endpoint
 
   constructor(private http: HttpClient) {}
 

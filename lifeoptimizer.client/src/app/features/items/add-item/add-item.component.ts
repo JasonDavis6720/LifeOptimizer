@@ -12,22 +12,24 @@ import { ItemService } from 'src/app/core/services/item.service'; // Import the 
 export class AddItemComponent {
   item = {
     name: '',
-    description: '',
+    category: '',
   };
 
   constructor(private itemService: ItemService) {}
 
   onSubmit() {
     // Call the service method to add the item
-    this.itemService.addItem(this.item).subscribe({
-      next: (response) => {
-        console.log('Item added successfully:', response);
-        // Optionally, clear the form or display a success message
-      },
-      error: (err) => {
-        console.error('Error adding item:', err);
-        // Handle error (e.g., display a message to the user)
-      },
-    });
+    try {
+      this.itemService.addItem(this.item).subscribe({
+        next: (response) => {
+          console.log('Item added successfully:', response);
+          // Optionally, clear the form or display a success message
+        },
+      });
+    }
+    catch (error) {
+      console.error('Error adding item:', error);
+    };
   }
 }
+

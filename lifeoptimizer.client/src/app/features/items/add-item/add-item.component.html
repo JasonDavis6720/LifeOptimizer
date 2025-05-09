@@ -1,1 +1,17 @@
-<p>Add Item Component Works!</p>
+<div>
+    <h2>Add New Item</h2>
+    <form (ngSubmit)="onSubmit()" #itemForm="ngForm">
+        <div>
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" [(ngModel)]="item.name" required />
+        </div>
+
+        <div>
+            <label for="category">Category</label>
+            <input type="text" id="category" name="category" [(ngModel)]="item.category" required />
+        </div>
+
+        <button type="submit" [disabled]="!itemForm.form.valid">Add Item</button>
+    </form>
+</div>
+  
