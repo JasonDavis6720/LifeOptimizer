@@ -1,11 +1,9 @@
-﻿using LifeOptimizer.Core.Entities;
-using LifeOptimizer.Core.Interfaces;
-using LifeOptimizer.Application.Interfaces;
+﻿using AutoMapper;
 using LifeOptimizer.Application.Dtos;
-using Microsoft.EntityFrameworkCore;
+using LifeOptimizer.Application.Interfaces;
+using LifeOptimizer.Core.Entities;
+using LifeOptimizer.Core.Interfaces;
 using LifeOptimizer.Infrastructure.Data;
-using AutoMapper;
-using LifeOptimizer.Infrastructure.Repositories;
 
 namespace LifeOptimizer.Server.Services
 {
@@ -32,8 +30,8 @@ namespace LifeOptimizer.Server.Services
             var element = _mapper.Map<StorageElement>(storageElementDto);
             element.UserId = userId;
 
-            var savedElement = await _storageElementRepository.AddStorageElementAsync(element);
-            
+            var savedElement = await _storageElementRepository.CreateStorageElementAsync(element);
+
             return _mapper.Map<StorageElementReturnDto>(savedElement);
         }
 

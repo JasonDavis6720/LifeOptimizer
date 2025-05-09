@@ -1,51 +1,38 @@
-﻿//using LifeOptimizer.Server.Data;
-//using LifeOptimizer.Server.Models;
-//using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using LifeOptimizer.Application.Dtos;
+using LifeOptimizer.Application.Interfaces;
+using LifeOptimizer.Core.Entities;
+using LifeOptimizer.Infrastructure.Data;
 
-//public class DwellingService : IDwellingService
-//{
-//    private readonly ApplicationDbContext _context;
+namespace LifeOptimizer.Server.Services
+{
+    public class DwellingService : IDwellingService
+    {
+        private readonly AppDbContext _context;
+        private readonly IDwellingRepository _dwellingRepository;
+        private readonly IMapper _mapper;
+        private readonly IUserContextService _user;
 
-//    public DwellingService(ApplicationDbContext context)
-//    {
-//        _context = context;
-//    }
+        public DwellingService(AppDbContext context, IDwellingRepository dwellingRepository, IMapper mapper, IUserContextService user)
+        {
+            _context = context;
+            _dwellingRepository = dwellingRepository;
+            _mapper = mapper;
+            _user = user;
 
-//    public async Task<Dwelling> GetDwellingResponseByIdAsync(int id)
-//    {
-//        var dwelling = await _context.Dwellings
-//            .Include(d => d.User)
-//            .FirstOrDefaultAsync(d => d.Id == id);
+        }
 
-//        return dwelling;
-//    }
+        public async Task<DwellingReturnDto> CreateDwellingAsync(CreateDwellingDto dwellingDto)
+        {
+            // Convert DTO to domain entity
+            var userId = _user.GetCurrentUserId();
+            var dwelling = _mapper.Map<Dwelling>(dwellingDto);
+            dwelling.UserId = userId;
 
-//    public async Task<Dwelling> CreateDwellingForUserAsync(string userId, Dwelling dwelling)
-//    {
-//        if (string.IsNullOrWhiteSpace(userId))
-//        {
-//            throw new InvalidOperationException("UserId cannot be null or empty.");
-//        }
+            var savedDwelling = await _dwellingRepository.CreateDwellingAsync(dwelling);
 
-//        dwelling.UserId = userId;
-        
-//        _context.Dwellings.Add(dwelling);
-//        await _context.SaveChangesAsync();
+            return _mapper.Map<DwellingReturnDto>(savedDwelling);
+        }
 
-//        return dwelling;
-//    }
-
-//    public async Task<bool> DeleteDwellingByIdAsync(int id)
-//    {
-//        var dwelling = await _context.Dwellings.FirstOrDefaultAsync(d => d.Id == id);
-
-//        if (dwelling == null)
-//        {
-//            return false;
-//        }
-
-//        _context.Dwellings.Remove(dwelling);
-//        await _context.SaveChangesAsync();
-//        return true;
-//    }
-//}
+    }
+}

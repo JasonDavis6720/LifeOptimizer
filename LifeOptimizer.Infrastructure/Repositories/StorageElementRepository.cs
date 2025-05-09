@@ -1,6 +1,6 @@
 ﻿using LifeOptimizer.Core.Entities;
-using LifeOptimizer.Infrastructure.Data;
 using LifeOptimizer.Core.Interfaces;
+using LifeOptimizer.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace LifeOptimizer.Infrastructure.Repositories
@@ -14,14 +14,14 @@ namespace LifeOptimizer.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<StorageElement> AddStorageElementAsync(StorageElement item)
+        public async Task<StorageElement> CreateStorageElementAsync(StorageElement item)
         {
             _dbContext.StorageElements.Add(item);
             await _dbContext.SaveChangesAsync();
             return item;
         }
 
-        public async Task<List<StorageElement>> GetStorageElementsByUserIdAsync (string userId)
+        public async Task<List<StorageElement>> GetStorageElementsByUserIdAsync(string userId)
         {
             return await _dbContext.StorageElements
                 .Where(i => i.UserId == userId)
