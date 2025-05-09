@@ -1,13 +1,9 @@
 ﻿using LifeOptimizer.Core.Entities;
 using LifeOptimizer.Core.Interfaces;
 using LifeOptimizer.Application.Interfaces;
-using LifeOptimizer.Application.DTOs;
+using LifeOptimizer.Application.Dtos;
 using LifeOptimizer.Infrastructure.Data;
 using AutoMapper;
-using Humanizer;
-using Microsoft.EntityFrameworkCore;
-
-
 
 namespace LifeOptimizer.Server.Services
 {

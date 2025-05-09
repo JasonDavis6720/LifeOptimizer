@@ -1,12 +1,11 @@
-using Microsoft.EntityFrameworkCore;
-using LifeOptimizer.Infrastructure.Data;
 using LifeOptimizer.Application.Interfaces;
-using LifeOptimizer.Core.Interfaces;
-using LifeOptimizer.Server.Services;
-using LifeOptimizer.Infrastructure.Repositories;
 using LifeOptimizer.Application.Mappings;
-using AutoMapper;
+using LifeOptimizer.Core.Interfaces;
+using LifeOptimizer.Infrastructure.Data;
+using LifeOptimizer.Infrastructure.Repositories;
 using LifeOptimizer.Infrastructure.Services;
+using LifeOptimizer.Server.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,12 +23,17 @@ builder.Services.AddScoped<IStorageElementRepository, StorageElementRepository>(
 builder.Services.AddScoped<IRoomService, RoomService>();
 builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 
+builder.Services.AddScoped<IDwellingService, DwellingService>();
+builder.Services.AddScoped<IDwellingRepository, DwellingRepository>();
+
 builder.Services.AddScoped<IUserContextService, StubUserContextService>();
 
 builder.Services.AddAutoMapper(cfg =>
 {
     cfg.AddProfile<StorageElementProfile>();
     cfg.AddProfile<ItemProfile>();
+    cfg.AddProfile<RoomProfile>();
+    cfg.AddProfile<DwellingProfile>();
 });
 
 // Add controllers and JSON options

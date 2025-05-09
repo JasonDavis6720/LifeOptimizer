@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using LifeOptimizer.Application.DTOs;
+using LifeOptimizer.Application.Dtos;
 using LifeOptimizer.Application.Interfaces;
-using LifeOptimizer.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LifeOptimizer.Server.Controllers
@@ -10,11 +9,11 @@ namespace LifeOptimizer.Server.Controllers
     [Route("api/[controller]")]
     public class StorageElementController : ControllerBase
     {
-        private readonly IStorageElementService _StorageElementService;
+        private readonly IStorageElementService _storageElementService;
 
-        public StorageElementController(IStorageElementService StorageElementService, IMapper mapper)
+        public StorageElementController(IStorageElementService storageElementService, IMapper mapper)
         {
-            _StorageElementService = StorageElementService;
+            _storageElementService = storageElementService;
         }
         //[HttpGet]
         //public async Task<IActionResult> GetAllStorageElementsAsync()
@@ -43,7 +42,7 @@ namespace LifeOptimizer.Server.Controllers
             }
             try
             {
-                var element = await _StorageElementService.CreateStorageElementByIdAsync(storageElementDto);
+                var element = await _storageElementService.CreateStorageElementByIdAsync(storageElementDto);
                 return Ok($"Storage Element: {storageElementDto.Name} created successfully");
             }
             catch (InvalidOperationException ex)
@@ -83,4 +82,3 @@ namespace LifeOptimizer.Server.Controllers
         //}
     }
 }
-       

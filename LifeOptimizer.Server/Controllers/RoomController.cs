@@ -1,4 +1,4 @@
-﻿using LifeOptimizer.Application.DTOs;
+﻿using LifeOptimizer.Application.Dtos;
 using LifeOptimizer.Application.Interfaces;
 using LifeOptimizer.Core.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +33,7 @@ namespace LifeOptimizer.Server.Controllers
         //}
         //// POST: api/Room
         [HttpPost]
-        public async Task<IActionResult> CreateRoomAsync([FromBody] RoomDto storageElementDto)
+        public async Task<IActionResult> CreateRoomAsync([FromBody] CreateRoomDto storageElementDto)
         {
             if (!ModelState.IsValid)
             {
@@ -42,7 +42,7 @@ namespace LifeOptimizer.Server.Controllers
             try
             {
                 var response = await _RoomService.CreateRoomAsync(storageElementDto);
-                return Ok(response); // Return the created item directly
+                return Ok($"Item: {response.Name} created successfully");
             }
             catch (InvalidOperationException ex)
             {

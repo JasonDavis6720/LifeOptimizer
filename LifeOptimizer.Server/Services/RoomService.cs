@@ -1,32 +1,39 @@
 ﻿using LifeOptimizer.Core.Entities;
 using LifeOptimizer.Core.Interfaces;
 using LifeOptimizer.Application.Interfaces;
-using LifeOptimizer.Application.DTOs;
+using LifeOptimizer.Application.Dtos;
+using AutoMapper;
+using LifeOptimizer.Infrastructure.Data;
+using LifeOptimizer.Infrastructure.Repositories;
 
 namespace LifeOptimizer.Server.Services
 {
     public class RoomService : IRoomService
     {
-        private readonly IRoomRepository _RoomRepository;
-
-        public RoomService(IRoomRepository RoomRepository)
+        private readonly IRoomRepository _roomRepository;
+        private readonly AppDbContext _context;
+        private readonly IMapper _mapper;
+        private readonly IUserContextService _user;
+        
+        public RoomService(IRoomRepository roomRepository, AppDbContext context, IMapper mapper, IUserContextService user)
         {
-            _RoomRepository = RoomRepository;
+            _context = context;
+            _roomRepository = roomRepository;
+            _mapper = mapper;
+            _user = user;
+
+
         }
 
-        public async Task<Room> CreateRoomAsync(RoomDto roomDto)
+        public async Task<RoomReturnDto> CreateRoomAsync(CreateRoomDto roomDto)
         {
-            // Convert DTO to domain entity
-            var room = new Room
-            {
-                Name = roomDto.Name,
-                DwellingId = roomDto.DwellingId
-            };
+            var userId = _user.GetCurrentUserId();
+            var room = _mapper.Map<Room>(roomDto);
+            room.UserId = userId;
 
-            // Add any additional business logic here (e.g., validation)
+            var savedItem = await _roomRepository.AddRoomAsync(room);
 
-            // Pass the domain entity to the repository
-            return await _RoomRepository.AddRoomAsync(room);
+            return _mapper.Map<RoomReturnDto>(savedItem);
         }
 
     }

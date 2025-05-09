@@ -1,14 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace LifeOptimizer.Core.Entities
+﻿namespace LifeOptimizer.Application.Dtos
 {
-
-    public class Dwelling
+    public class DwellingDto
     {
-        [Key]
         public int DwellingId { get; set; }
-        [Required]
-        public string UserId { get; set; }
         public string Name { get; set; } // Name of the dwelling (e.g., "My House")
         public string StreetAddress { get; set; }
         public string? ApartmentNumber { get; set; }
@@ -16,6 +10,6 @@ namespace LifeOptimizer.Core.Entities
         public string State { get; set; }
         public string ZipCode { get; set; }
         public string Country { get; set; } = "USA";
-        public ICollection<Room> Rooms { get; set; }
+        public List<RoomDto> Rooms { get; set; } = new List<RoomDto>();
     }
 }
