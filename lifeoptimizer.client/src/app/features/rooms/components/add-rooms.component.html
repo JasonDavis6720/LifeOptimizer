@@ -1,0 +1,19 @@
+<div>
+  <h2>Add New Room</h2>
+  <form (ngSubmit)="onSubmit()" #roomForm="ngForm" class="add-room-form">
+    
+    <div class="form-group">
+      <label for="name">Room Name:</label>
+      <input type="text" id="name" name="name" [(ngModel)]="room.name" required />
+    </div>
+    
+    <div class="form-group">
+      <label for="dwellingId">Dwelling:</label>
+      <input type="number" id="dwellingId" name="dwellingId" required />
+    </div>
+    
+    <div class = "form-actions">
+      <button type="submit" [disabled]="!roomForm.valid">Add Room</button>
+    </div>
+  </form>
+</div>

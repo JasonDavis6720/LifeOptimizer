@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ItemService } from 'src/app/core/services/item.service'; // Import the service
+import { ItemService } from 'src/app/features/items/services/item.service'; // Import the service
 
 @Component({
   selector: 'app-add-item',
