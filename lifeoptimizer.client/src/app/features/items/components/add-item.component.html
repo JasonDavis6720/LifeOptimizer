@@ -1,17 +1,18 @@
 <div>
     <h2>Add New Item</h2>
-    <form (ngSubmit)="onSubmit()" #itemForm="ngForm">
-        <div>
+    <form (ngSubmit)="onSubmit()" #itemForm="ngForm" class="add-item-form">
+        <div class="form-group">
             <label for="name">Name</label>
             <input type="text" id="name" name="name" [(ngModel)]="item.name" required />
         </div>
 
-        <div>
+        <div class="form-group">
             <label for="category">Category</label>
             <input type="text" id="category" name="category" [(ngModel)]="item.category" required />
         </div>
 
-        <button type="submit" [disabled]="!itemForm.form.valid">Add Item</button>
+        <div class="form-actions">
+            <button type="submit" [disabled]="!itemForm.form.valid">Add Item</button>
+        </div>
     </form>
 </div>
-  

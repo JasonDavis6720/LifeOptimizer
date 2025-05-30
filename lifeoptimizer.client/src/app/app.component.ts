@@ -1,15 +1,11 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // Add this
-import { AddItemComponent } from './features/items/add-item/add-item.component'; // Correct path
+import { RouterModule } from '@angular/router';
+import { ShellComponent } from './layout/shell/shell.component';  // Import your layout shell
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, FormsModule, AddItemComponent],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  imports: [ShellComponent, RouterModule],  // <-- Include RouterModule here
+  templateUrl: './app.component.html'
 })
-export class AppComponent {
-  title = 'lifeoptimizer.client';
-}
+export class AppComponent { }

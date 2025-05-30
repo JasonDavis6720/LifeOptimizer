@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/1.0.2191419">
+﻿<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/1.0.2191419">
   <PropertyGroup>
     <StartupCommand>npm start</StartupCommand>
     <JavaScriptTestFramework>Jasmine</JavaScriptTestFramework>
@@ -7,4 +7,11 @@
     <!-- Folder where production build objects will be placed -->
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist\lifeoptimizer.client\browser\</BuildOutputFolder>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="src\app\features\items\dtos\" />
+    <Folder Include="src\app\features\items\models\" />
+    <Folder Include="src\app\features\rooms\" />
+    <Folder Include="src\app\layout\" />
+    <Folder Include="src\app\shared\" />
+  </ItemGroup>
 </Project>
